@@ -99,6 +99,37 @@
     letter-spacing:.06em;text-transform:uppercase;background:none;border:0;
     color:var(--brand-ink);cursor:pointer;padding:0 0 0 8px;text-decoration:underline}
 
+
+  /* ---- how to use this ---- */
+  .howto{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r-md);
+    margin-bottom:12px;overflow:hidden}
+  .howto.is-open{border-color:var(--brand)}
+  .howto-bar{width:100%;display:flex;align-items:center;gap:10px;background:transparent;border:0;
+    cursor:pointer;padding:12px 15px;text-align:left;font-family:"Quicksand",sans-serif;
+    font-weight:700;font-size:15px;color:var(--brand-ink);line-height:1.25}
+  .howto-ic{width:26px;height:26px;flex:none;border-radius:50%;background:var(--brand-soft);
+    display:grid;place-items:center}
+  .howto-ic svg{width:16px;height:16px;fill:none;stroke:var(--brand-ink);stroke-width:2;
+    stroke-linecap:round;stroke-linejoin:round}
+  .howto-title{flex:1;min-width:0}
+  .howto-chev{flex:none;display:grid;place-items:center}
+  .howto-chev svg{width:18px;height:18px;fill:none;stroke:var(--ink-faint);stroke-width:2.2;
+    stroke-linecap:round;stroke-linejoin:round;transition:transform .2s ease}
+  .howto.is-open .howto-chev svg{transform:rotate(180deg)}
+  .howto-body{padding:2px 15px 14px}
+  .howto-steps{margin:0;padding:0;list-style:none;counter-reset:ht}
+  .howto-steps li{position:relative;padding:0 0 10px 31px;counter-increment:ht}
+  .howto-steps li:last-child{padding-bottom:2px}
+  .howto-steps li::before{content:counter(ht);position:absolute;left:0;top:1px;
+    width:21px;height:21px;border-radius:50%;background:var(--brand);color:#fff;
+    font-family:"Quicksand",sans-serif;font-weight:700;font-size:12px;
+    display:grid;place-items:center;line-height:1}
+  .howto-steps b{font-family:"Quicksand",sans-serif;font-weight:700;font-size:14.5px;
+    color:var(--ink);display:block;line-height:1.3}
+  .howto-steps span{font-size:13px;color:var(--ink-soft);font-weight:300;line-height:1.45;display:block}
+  .howto-more{margin:11px 0 0;padding-top:9px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink-faint);font-weight:300}
+
   /* ---- today ---- */
   .today{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
     padding:20px 22px 17px;display:flex;flex-direction:column;gap:14px}
@@ -298,6 +329,22 @@
     </div>
   </section>
 
+  <section class="howto" id="howto">
+    <button class="howto-bar" id="howtoToggle" type="button" aria-expanded="false" aria-controls="howtoBody">
+      <span class="howto-ic" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.7 9.5a2.4 2.4 0 1 1 3.1 2.3c-.6.2-1 .8-1 1.4v.4M12 16.8h.01"/></svg>
+      </span>
+      <span class="howto-title" id="howtoTitle"></span>
+      <span class="howto-chev" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6"/></svg>
+      </span>
+    </button>
+    <div class="howto-body" id="howtoBody" hidden>
+      <ol class="howto-steps" id="howtoSteps"></ol>
+      <p class="howto-more" id="howtoMore"></p>
+    </div>
+  </section>
+
   <header class="today">
     <div class="today-top">
       <div class="today-text">
@@ -457,7 +504,21 @@
       foot2:"You need access to the Sama-Aralan Google Drive folder to open the songs.",
       phTitle:"Name in English", phAlt:"Pangalan sa Filipino",
       phNote:"Note for the grown-up", lblTime:"Time", remove:"Remove",
-      newAct:"New activity"
+      newAct:"New activity",
+      howtoTitle:"How to use this",
+      howtoSteps:[
+        ["Choose your language",
+         "English or Filipino, top right. The other language stays underneath in small letters."],
+        ["Type your child's name",
+         "It appears at the top of every day. Tap Change beside the name to edit it later."],
+        ["Tap the circle when an activity is done",
+         "The bar at the top fills up. Tap the circle again to undo it."],
+        ["Orange means now",
+         "Whatever is happening at this moment is outlined in orange. Tap What's now? to jump to it."],
+        ["Copy your Setup Code",
+         "At the bottom of this page. Send it to yourself \u2014 your routine is saved only on this phone."]
+      ],
+      howtoMore:"Tap Edit routine any time to change the times, the activities and the words."
     },
     fil:{
       edit:"Baguhin ang routine", editDone:"Tapos na", notes:"Paalala sa magulang",
@@ -495,7 +556,21 @@
       foot2:"Kailangan ng access sa Sama-Aralan Google Drive folder para mabuksan ang mga awitin.",
       phTitle:"Pangalan sa Filipino", phAlt:"Name in English",
       phNote:"Paalala sa magulang", lblTime:"Oras", remove:"Alisin",
-      newAct:"Bagong gawain"
+      newAct:"Bagong gawain",
+      howtoTitle:"Paano ito gamitin",
+      howtoSteps:[
+        ["Piliin ang wika",
+         "English o Filipino, nasa kanang itaas. Ang isa pang wika ay nasa ilalim, maliit ang letra."],
+        ["Isulat ang pangalan ng bata",
+         "Lalabas ito sa itaas araw-araw. Pindutin ang Palitan sa tabi ng pangalan para baguhin."],
+        ["Pindutin ang bilog kapag tapos na ang gawain",
+         "Mapupuno ang bar sa itaas. Pindutin ulit ang bilog para bawiin."],
+        ["Ang orange ay ang ngayon",
+         "Ang ginagawa sa oras na ito ay may orange na palibot. Pindutin ang Ano ngayon? para lumipat dito."],
+        ["Kopyahin ang Setup Code",
+         "Nasa ibaba ng page na ito. Ipadala sa sarili mo \u2014 naka-save lang ang routine mo sa teleponong ito."]
+      ],
+      howtoMore:"Pindutin ang Baguhin ang routine anumang oras para palitan ang oras, ang gawain at ang mga salita."
     }
   };
 
@@ -740,7 +815,7 @@
   var stepsEl  = document.getElementById("steps");
   var circleEl = document.getElementById("circleSection");
   var circleHome = document.getElementById("circleHome");
-  var editing = false, showNotes = false, plannerOpen = false;
+  var editing = false, showNotes = false, plannerOpen = false, howtoOpen = false;
 
   function iconSelect(cur){
     var names = ICON_NAMES[state.lang] || ICON_NAMES.en;
@@ -976,6 +1051,36 @@
     }
   }
 
+  /* ---------- how to use this ---------- */
+  var HOWTO_SEEN = "samaAralanRoutine.howtoSeen";
+  function howtoSeen(){
+    try{ return window.localStorage.getItem(HOWTO_SEEN) === "1"; }catch(e){ return false; }
+  }
+  function markHowtoSeen(){
+    try{ window.localStorage.setItem(HOWTO_SEEN, "1"); }catch(e){}
+  }
+  var howtoEl = document.getElementById("howto");
+  var howtoBody = document.getElementById("howtoBody");
+  var howtoBtn = document.getElementById("howtoToggle");
+
+  function drawHowto(){
+    var t = L(), list = t.howtoSteps || [], out = "", i;
+    document.getElementById("howtoTitle").textContent = t.howtoTitle;
+    for(i=0;i<list.length;i++){
+      out += "<li><b>"+esc(list[i][0])+"</b><span>"+esc(list[i][1])+"</span></li>";
+    }
+    document.getElementById("howtoSteps").innerHTML = out;
+    document.getElementById("howtoMore").textContent = t.howtoMore;
+    howtoBody.hidden = !howtoOpen;
+    howtoBtn.setAttribute("aria-expanded", howtoOpen ? "true" : "false");
+    howtoEl.classList.toggle("is-open", howtoOpen);
+  }
+  howtoBtn.addEventListener("click", function(){
+    howtoOpen = !howtoOpen;
+    markHowtoSeen();
+    drawHowto();
+  });
+
   /* ---------- language ---------- */
   function applyLang(){
     var t = L();
@@ -1003,7 +1108,7 @@
     var ns = document.getElementById("noStore");
     ns.innerHTML = t.noStore; ns.hidden = storeOK;
 
-    drawName(); renderVideos(); drawHeader(); drawWeek(); drawPlanner();
+    drawHowto(); drawName(); renderVideos(); drawHeader(); drawWeek(); drawPlanner();
     render(); drawEditingWhat(); tick(true);
   }
 
@@ -1021,6 +1126,7 @@
     var v = document.getElementById("childInput").value.trim().slice(0,28);
     if(!v) return;
     state.child = v; save(); drawName(); drawHeader();
+    if(howtoOpen){ howtoOpen = false; markHowtoSeen(); drawHowto(); }
   }
   document.getElementById("saveName").addEventListener("click", commitName);
   document.getElementById("childInput").addEventListener("keydown", function(ev){
@@ -1169,6 +1275,7 @@
 
   /* ---------- go ---------- */
   load();
+  howtoOpen = !state.child && !howtoSeen();
   state.routine.sort(function(a,b){return mins(a.t)-mins(b.t)});
   applyLang();
   refreshCode();
