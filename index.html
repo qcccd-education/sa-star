@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Sama-Aralan daily routine board — bilingual, personalised by each family.">
-<meta name="theme-color" content="#1F6F5C">
+<meta name="theme-color" content="#2FAFB6">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -13,150 +13,187 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <title>Sama-Aralan Routine Board</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap">
 <style>
-  html,body{background:#F5F8F2}
-  @media (prefers-color-scheme:dark){html,body{background:#111814}}
+  html,body{background:#FBFCFE}
+  @media (prefers-color-scheme:dark){html,body{background:#161B22}}
   :root{
-    --ground:#F5F8F2; --surface:#FFFFFF; --surface-2:#EDF2E9;
-    --ink:#1E2A24; --ink-soft:#586A60; --ink-faint:#8B9A91; --line:#D9E2D5;
-    --pine:#1F6F5C; --pine-soft:#DDEDE6;
-    --sun:#E9A419; --sun-soft:#FBEDD0; --on-sun:#20180A;
-    --coral:#DC5A43; --sky:#4E85C0; --sky-soft:#DEE9F6;
-    --shadow:0 1px 2px rgba(30,42,36,.06), 0 6px 18px rgba(30,42,36,.05);
-    --r-lg:20px; --r-md:14px; --r-sm:9px;
+    --ground:#FBFCFE; --surface:#FFFFFF; --surface-2:#F1F5FA;
+    --ink:#3A4454; --ink-soft:#6B7789; --ink-faint:#9AA6B6; --line:#E6EDF5;
+    --brand:#2FAFB6; --brand-ink:#1E8A90; --brand-soft:#DAF5F6;
+    --sun:#FFD166; --sun-soft:#FFF6E0; --on-sun:#5B4300;
+    --badge:#E8553F;
+    --t1:#DFF6EC; --t1i:#1E8A6A;
+    --t2:#DEEEFB; --t2i:#2E7FC4;
+    --t3:#FFE8DC; --t3i:#C85F39;
+    --t4:#EBE6FB; --t4i:#6F5BC7;
+    --t5:#FFF3CE; --t5i:#9C7210;
+    --shadow:0 2px 3px rgba(58,68,84,.04), 0 8px 24px rgba(58,68,84,.06);
+    --r-lg:26px; --r-md:20px; --r-sm:12px;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --ground:#111814; --surface:#19221D; --surface-2:#212C26;
-      --ink:#E9F0EA; --ink-soft:#A6B5AC; --ink-faint:#74857B; --line:#2C3A32;
-      --pine:#5CBFA3; --pine-soft:#1C332C;
-      --sun:#F0B845; --sun-soft:#2A2314; --on-sun:#20180A;
-      --coral:#F0765D; --sky:#7FADDC; --sky-soft:#1B2734;
-      --shadow:0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.28);
+      --ground:#161B22; --surface:#1E242D; --surface-2:#262D38;
+      --ink:#E8EDF4; --ink-soft:#A8B3C2; --ink-faint:#7A8695; --line:#313945;
+      --brand:#5FD3D9; --brand-ink:#7FE0E5; --brand-soft:#1C3A3D;
+      --sun:#FFD166; --sun-soft:#3A3117; --on-sun:#FFE9AE;
+      --badge:#F0705A;
+      --t1:#1D3A31; --t1i:#7FD9BA; --t2:#1C3145; --t2i:#8CC2EE;
+      --t3:#3D2A21; --t3i:#F0A184; --t4:#2B2541; --t4i:#B4A5F0;
+      --t5:#3A3119; --t5i:#E8C976;
+      --shadow:0 2px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
     }
   }
   :root[data-theme="dark"]{
-    --ground:#111814; --surface:#19221D; --surface-2:#212C26;
-    --ink:#E9F0EA; --ink-soft:#A6B5AC; --ink-faint:#74857B; --line:#2C3A32;
-    --pine:#5CBFA3; --pine-soft:#1C332C;
-    --sun:#F0B845; --sun-soft:#2A2314; --on-sun:#20180A;
-    --coral:#F0765D; --sky:#7FADDC; --sky-soft:#1B2734;
-    --shadow:0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.28);
+    --ground:#161B22; --surface:#1E242D; --surface-2:#262D38;
+    --ink:#E8EDF4; --ink-soft:#A8B3C2; --ink-faint:#7A8695; --line:#313945;
+    --brand:#5FD3D9; --brand-ink:#7FE0E5; --brand-soft:#1C3A3D;
+    --sun:#FFD166; --sun-soft:#3A3117; --on-sun:#FFE9AE;
+    --badge:#F0705A;
+    --t1:#1D3A31; --t1i:#7FD9BA; --t2:#1C3145; --t2i:#8CC2EE;
+    --t3:#3D2A21; --t3i:#F0A184; --t4:#2B2541; --t4i:#B4A5F0;
+    --t5:#3A3119; --t5i:#E8C976;
+    --shadow:0 2px 3px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25);
   }
 
   *{box-sizing:border-box}
+  [hidden]{display:none!important}
   body{
     margin:0; background:var(--ground); color:var(--ink);
-    font-family:"Karla","Segoe UI",system-ui,sans-serif;
-    font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+    font-family:"Poppins","Century Gothic","Avenir Next","Segoe UI",system-ui,sans-serif;
+    font-size:15.5px; font-weight:400; line-height:1.55; -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:780px; margin:0 auto; padding-inline:16px; padding-block:20px 56px}
-  h1,h2,h3{font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;font-weight:700;margin:0;line-height:1.15}
-  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin:0}
-  .en{color:var(--ink-faint);font-weight:400;font-style:italic}
+  .wrap{max-width:780px;margin:0 auto;padding-inline:16px;padding-block:20px 56px}
+  h1,h2,h3{font-family:"Quicksand","Century Gothic","Avenir Next",system-ui,sans-serif;
+    font-weight:700;margin:0;line-height:1.2}
+  .eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);
+    font-weight:600;margin:0}
+  .en{color:var(--ink-faint);font-weight:300}
 
-  .banner{
-    background:var(--sun-soft); border:1px solid var(--sun); border-radius:var(--r-md);
-    padding:11px 14px; font-size:13.5px; margin-bottom:14px; color:var(--ink);
-  }
+  .banner{background:var(--sun-soft);border:1.5px solid var(--sun);border-radius:var(--r-md);
+    padding:12px 15px;font-size:13.5px;margin-bottom:14px;color:var(--ink)}
 
   /* ---- today ---- */
   .today{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
-    padding:18px 20px 16px;display:flex;flex-direction:column;gap:13px}
+    padding:20px 22px 17px;display:flex;flex-direction:column;gap:14px}
   .today-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
   .today-text{flex:1 1 210px;min-width:0}
-  #kidLine{font-size:12.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.02em}
-  #dayName{font-size:clamp(32px,9.5vw,50px);color:var(--pine);letter-spacing:-.01em}
-  #dayEn{font-size:14px;margin:1px 0 0}
-  #fullDate{font-size:16.5px;color:var(--ink-soft);font-weight:500;margin:4px 0 0}
-  #clock{font-variant-numeric:tabular-nums;font-family:"Baloo 2",sans-serif;font-size:21px;
-    font-weight:600;background:var(--surface-2);border-radius:var(--r-sm);padding:6px 12px;white-space:nowrap}
+  #kidLine{font-size:12px;color:var(--ink-soft);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+  #dayName{font-size:clamp(34px,10vw,54px);color:var(--brand-ink);letter-spacing:-.015em;margin-top:2px}
+  #dayEn{font-size:14px;margin:0;font-weight:300}
+  #fullDate{font-size:16px;color:var(--ink-soft);font-weight:400;margin:5px 0 0}
+  #clock{font-family:"Quicksand",sans-serif;font-variant-numeric:tabular-nums;font-size:21px;
+    font-weight:700;background:var(--brand-soft);color:var(--brand-ink);
+    border-radius:var(--r-sm);padding:7px 14px;white-space:nowrap}
   .daystrip{display:flex;gap:5px;margin:0;padding:0}
-  .daystrip li{flex:1;list-style:none;text-align:center;padding:6px 0 7px;border-radius:var(--r-sm);
-    background:var(--surface-2);color:var(--ink-faint);font-weight:700;font-size:12px;letter-spacing:.04em}
+  .daystrip li{flex:1;list-style:none;text-align:center;padding:7px 0 8px;border-radius:var(--r-sm);
+    background:var(--surface-2);color:var(--ink-faint);font-weight:600;font-size:12px;
+    font-family:"Quicksand",sans-serif;letter-spacing:.04em}
   .daystrip li.is-today{background:var(--sun);color:var(--on-sun)}
   .progress-row{display:flex;align-items:center;gap:12px}
-  .bar{flex:1;height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
-  .bar span{display:block;height:100%;width:0;background:var(--pine);border-radius:99px;transition:width .35s ease}
-  #progressText{font-size:13px;color:var(--ink-soft);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .bar{flex:1;height:12px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+  .bar span{display:block;height:100%;width:0;border-radius:99px;
+    background:linear-gradient(90deg,var(--brand),var(--sun));transition:width .4s ease}
+  #progressText{font-family:"Quicksand",sans-serif;font-size:13px;color:var(--ink-soft);
+    font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
 
   /* ---- buttons ---- */
-  .controls{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 12px}
-  .btn{font-family:"Karla",sans-serif;font-size:13px;font-weight:700;color:var(--ink-soft);
-    background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:8px 14px;cursor:pointer}
-  .btn:hover{color:var(--ink);border-color:var(--ink-faint)}
-  .btn[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:#fff}
-  .btn-sm{font-size:12px;padding:6px 11px}
-  .btn:focus-visible,.check:focus-visible,.vid:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+  .controls{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0 12px}
+  .btn{font-family:"Quicksand",sans-serif;font-size:13.5px;font-weight:700;color:var(--ink-soft);
+    background:var(--surface);border:1.5px solid var(--line);border-radius:99px;
+    padding:9px 16px;cursor:pointer}
+  .btn:hover{color:var(--brand-ink);border-color:var(--brand)}
+  .btn[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+  .btn-sm{font-size:12.5px;padding:7px 13px}
+  .btn:focus-visible,.check:focus-visible,.vid:focus-visible,
+  input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--t2i);outline-offset:2px}
 
   /* ---- steps ---- */
-  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
   .step{background:var(--surface);border-radius:var(--r-md);box-shadow:var(--shadow);
-    display:grid;grid-template-columns:58px 38px 1fr auto;align-items:center;gap:11px;
-    padding:11px 13px;border-left:5px solid transparent}
-  .step.is-now{border-left-color:var(--sun);background:var(--sun-soft)}
+    display:grid;grid-template-columns:58px 44px 1fr auto;align-items:center;gap:12px;
+    padding:13px 15px;border:2px solid transparent}
+  .step.is-now{border-color:var(--sun);background:var(--sun-soft)}
   .step.is-done .title{text-decoration:line-through;color:var(--ink-faint)}
-  .step.is-done .icon{opacity:.45}
-  .time{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:var(--ink-soft)}
-  .step.is-now .time{color:var(--coral)}
-  .icon{width:34px;height:34px;border-radius:10px;background:var(--pine-soft);display:grid;place-items:center}
-  .icon svg{width:20px;height:20px;stroke:var(--pine);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
-  .title{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:17.5px;line-height:1.2}
-  .title .sub{display:block;font-family:"Karla",sans-serif;font-size:12.5px;font-weight:400;
-    font-style:italic;color:var(--ink-faint);line-height:1.3;margin-top:1px}
-  .now-tag{display:inline-block;margin-right:7px;font-family:"Karla",sans-serif;font-size:10px;
-    font-weight:700;letter-spacing:.09em;text-transform:uppercase;background:var(--coral);
-    color:#fff;border-radius:99px;padding:2px 7px;vertical-align:2px}
-  .note{grid-column:3/-1;font-size:13px;color:var(--ink-soft);font-style:italic;margin:-3px 0 0}
-  .check{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:transparent;
-    cursor:pointer;display:grid;place-items:center;padding:0}
-  .check svg{width:19px;height:19px;stroke:var(--ink-faint);fill:none;stroke-width:2.6;
+  .step.is-done .icon{opacity:.4}
+  .time{font-family:"Quicksand",sans-serif;font-variant-numeric:tabular-nums;font-size:13px;
+    font-weight:700;color:var(--ink-soft)}
+  .step.is-now .time{color:var(--badge)}
+  .icon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center}
+  .icon svg{width:23px;height:23px;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .tint1 .icon{background:var(--t1)} .tint1 .icon svg{stroke:var(--t1i)}
+  .tint2 .icon{background:var(--t2)} .tint2 .icon svg{stroke:var(--t2i)}
+  .tint3 .icon{background:var(--t3)} .tint3 .icon svg{stroke:var(--t3i)}
+  .tint4 .icon{background:var(--t4)} .tint4 .icon svg{stroke:var(--t4i)}
+  .tint5 .icon{background:var(--t5)} .tint5 .icon svg{stroke:var(--t5i)}
+  .title{font-family:"Quicksand",sans-serif;font-weight:700;font-size:17.5px;line-height:1.25}
+  .title .sub{display:block;font-family:"Poppins",sans-serif;font-size:12px;font-weight:300;
+    color:var(--ink-faint);line-height:1.35;margin-top:1px}
+  .now-tag{display:inline-block;margin-right:7px;font-family:"Poppins",sans-serif;font-size:9.5px;
+    font-weight:600;letter-spacing:.09em;text-transform:uppercase;background:var(--badge);
+    color:#fff;border-radius:99px;padding:3px 8px;vertical-align:2px}
+  .note{grid-column:3/-1;font-size:12.5px;color:var(--ink-soft);font-weight:300;margin:-2px 0 0}
+  .check{width:40px;height:40px;border-radius:50%;border:2.5px solid var(--line);
+    background:transparent;cursor:pointer;display:grid;place-items:center;padding:0;
+    transition:transform .15s ease}
+  .check:active{transform:scale(.9)}
+  .check svg{width:21px;height:21px;stroke:var(--ink-faint);fill:none;stroke-width:2.8;
     stroke-linecap:round;stroke-linejoin:round;opacity:0}
-  .step.is-done .check{background:var(--pine);border-color:var(--pine)}
+  .step.is-done .check{background:var(--brand);border-color:var(--brand)}
   .step.is-done .check svg{stroke:#fff;opacity:1}
 
   /* ---- edit mode ---- */
-  .step.editing{grid-template-columns:1fr;gap:8px;background:var(--surface)}
-  .erow{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-  .erow label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint)}
+  .step.editing{grid-template-columns:1fr;gap:9px;border-color:var(--line)}
+  .erow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .erow label{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
   input[type="time"],input[type="text"],select,textarea{
-    font-family:"Karla",sans-serif;font-size:14.5px;color:var(--ink);background:var(--ground);
-    border:1px solid var(--line);border-radius:var(--r-sm);padding:8px 10px}
+    font-family:"Poppins",sans-serif;font-size:14px;color:var(--ink);background:var(--ground);
+    border:1.5px solid var(--line);border-radius:var(--r-sm);padding:9px 11px}
   .f-text{flex:1 1 180px;min-width:0}
-  textarea{width:100%;resize:vertical;min-height:52px;font-size:13.5px}
-  .del{color:var(--coral);border-color:var(--coral)}
-  .addbar{margin-top:9px;display:flex;gap:7px;flex-wrap:wrap}
+  textarea{width:100%;resize:vertical;min-height:54px;font-size:13px;font-weight:300}
+  .del{color:var(--badge);border-color:var(--badge)}
+  .del:hover{color:var(--badge);border-color:var(--badge)}
+  .addbar{margin-top:10px;display:flex;gap:7px;flex-wrap:wrap}
 
   /* ---- circle time ---- */
   .circle{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
-    padding:17px 18px;margin-top:22px}
-  .circle h2{font-size:21px;color:var(--pine)}
-  .circle-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:12px;flex-wrap:wrap}
-  .vids{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
-  .vid{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--sky-soft);
-    border:1px solid transparent;border-radius:var(--r-sm);padding:10px 11px;color:inherit;
-    font-family:"Karla",sans-serif;font-size:14px;font-weight:700;text-decoration:none}
-  .vid:hover{border-color:var(--sky)}
-  .vid .play{width:27px;height:27px;flex:none;border-radius:50%;background:var(--sky);display:grid;place-items:center}
-  .vid .play svg{width:12px;height:12px;fill:#fff;stroke:none}
-  .vid .vname{min-width:0;line-height:1.2}
-  .vid .vlen{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);font-style:italic}
-  .vid.is-empty{background:var(--surface-2);border-style:dashed;border-color:var(--line)}
+    padding:20px 22px;margin-top:24px}
+  .circle h2{font-size:23px;color:var(--brand-ink)}
+  .circle-head{margin-bottom:14px}
+  .vids{list-style:none;margin:0;padding:0;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:9px}
+  .vid{display:flex;align-items:center;gap:11px;width:100%;text-align:left;
+    background:var(--surface-2);border:1.5px solid transparent;border-radius:var(--r-sm);
+    padding:11px 12px;color:inherit;font-family:"Quicksand",sans-serif;font-size:14.5px;
+    font-weight:700;text-decoration:none}
+  .vid:hover{border-color:var(--brand);background:var(--brand-soft)}
+  .vid .play{width:32px;height:32px;flex:none;border-radius:50%;background:var(--brand);
+    display:grid;place-items:center}
+  .vid .play svg{width:13px;height:13px;fill:#fff;stroke:none}
+  .vid .vname{min-width:0;line-height:1.25}
+  .vid .vlen{display:block;font-family:"Poppins",sans-serif;font-weight:300;font-size:11.5px;
+    color:var(--ink-soft);margin-top:1px}
+  .lang{display:inline-block;font-family:"Poppins",sans-serif;font-size:9px;font-weight:600;
+    letter-spacing:.08em;border-radius:99px;padding:2px 6px;margin-left:6px;vertical-align:1.5px}
+  .lang.en{background:var(--t2);color:var(--t2i)}
+  .lang.tl{background:var(--t1);color:var(--t1i)}
+  .vid.is-empty{border-style:dashed;border-color:var(--line)}
   .vid.is-empty .play{background:var(--ink-faint)}
 
   /* ---- setup code ---- */
-  .save{margin-top:22px;background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:17px 18px}
-  .save h2{font-size:19px}
-  .save p{font-size:13.5px;color:var(--ink-soft);margin:6px 0 11px}
-  .foot{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);
-    font-size:12.5px;color:var(--ink-faint);display:flex;flex-direction:column;gap:5px}
+  .save{margin-top:24px;background:var(--surface);border-radius:var(--r-lg);
+    box-shadow:var(--shadow);padding:20px 22px}
+  .save h2{font-size:20px}
+  .save p{font-size:13px;color:var(--ink-soft);font-weight:300;margin:7px 0 12px}
+  .foot{margin-top:26px;padding-top:16px;border-top:1.5px solid var(--line);
+    font-size:12.5px;color:var(--ink-faint);font-weight:300;display:flex;flex-direction:column;gap:5px}
 
   @media (max-width:520px){
-    .step{grid-template-columns:50px 32px 1fr auto;gap:9px;padding:10px 11px}
-    .icon{width:31px;height:31px}.icon svg{width:18px;height:18px}
-    .title{font-size:16px}.time{font-size:12px}.check{width:33px;height:33px}
-    .note{grid-column:1/-1}.vids{grid-template-columns:1fr 1fr}
+    .step{grid-template-columns:50px 36px 1fr auto;gap:10px;padding:12px}
+    .icon{width:36px;height:36px;border-radius:11px}.icon svg{width:20px;height:20px}
+    .title{font-size:16px}.time{font-size:12px}.check{width:36px;height:36px}
+    .note{grid-column:1/-1}.vids{grid-template-columns:1fr}
+    .today,.circle,.save{padding-inline:17px}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -165,9 +202,9 @@
 <body>
 <div class="wrap">
   <div class="banner" id="noStore" hidden>
-    <strong>Hindi makapag-save ang browser na ito.</strong> Maaari mo pa ring baguhin ang routine ngayon,
-    pero mawawala ito kapag nag-refresh ka. Kopyahin ang <em>Setup Code</em> sa ibaba at i-save sa Notes.
-    <span class="en">— This browser can't save. Copy your Setup Code below to keep your routine.</span>
+    <strong>Hindi makapag-save ang browser na ito.</strong> Puwede mo pa ring baguhin ang routine,
+    pero mawawala ito kapag nag-refresh. Kopyahin ang <em>Setup Code</em> sa ibaba.
+    <span class="en">— This browser can't save. Copy your Setup Code below.</span>
   </div>
 
   <header class="today">
@@ -188,25 +225,23 @@
   </header>
 
   <div class="controls">
-    <button class="btn" id="editToggle" type="button" aria-pressed="false">Baguhin ang routine · Edit</button>
-    <button class="btn" id="notesToggle" type="button" aria-pressed="false">Paalala sa magulang · Notes</button>
-    <button class="btn" id="jumpNow" type="button">Ano ngayon? · Now</button>
-    <button class="btn" id="resetChecks" type="button">Burahin ang tsek · Clear</button>
+    <button class="btn" id="editToggle" type="button" aria-pressed="false">Baguhin ang routine</button>
+    <button class="btn" id="notesToggle" type="button" aria-pressed="false">Paalala sa magulang</button>
+    <button class="btn" id="jumpNow" type="button">Ano ngayon?</button>
+    <button class="btn" id="resetChecks" type="button">Burahin ang tsek</button>
   </div>
 
   <ul class="steps" id="steps"></ul>
   <div class="addbar" id="addbar" hidden>
-    <button class="btn btn-sm" id="addStep" type="button">+ Magdagdag ng gawain · Add activity</button>
-    <button class="btn btn-sm" id="editName" type="button">Pangalan ng bata · Child's name</button>
-    <button class="btn btn-sm del" id="resetAll" type="button">Ibalik sa default · Reset</button>
+    <button class="btn btn-sm" id="addStep" type="button">+ Magdagdag ng gawain</button>
+    <button class="btn btn-sm" id="editName" type="button">Pangalan ng bata</button>
+    <button class="btn btn-sm del" id="resetAll" type="button">Ibalik sa default</button>
   </div>
 
   <section class="circle">
     <div class="circle-head">
-      <div>
-        <h2>Circle Time</h2>
-        <p class="eyebrow">Pareho ang sunod-sunod araw-araw · same order daily</p>
-      </div>
+      <h2>Circle Time</h2>
+      <p class="eyebrow">Sunod-sunod na awitin · tap to open in Drive</p>
     </div>
     <ul class="vids" id="vids"></ul>
   </section>
@@ -214,20 +249,20 @@
   <section class="save">
     <h2>Setup Code</h2>
     <p>
-      Nasa telepono mo lang naka-save ang routine na ito. Kung magpapalit ka ng telepono o magbubura ng
-      browser data, kopyahin muna ang code sa ibaba at i-save sa Notes o i-text sa sarili mo.
-      <span class="en">Your routine is saved on this phone only. Copy this code to move it to another phone.</span>
+      Nasa telepono mo lang naka-save ang routine na ito. Kung magpapalit ka ng telepono o
+      magbubura ng browser data, kopyahin ang code sa ibaba at i-save sa Notes.
+      <span class="en">Your routine is saved on this phone only — copy this code to move it.</span>
     </p>
     <textarea id="codeBox" rows="3" readonly aria-label="Setup code"></textarea>
     <div class="addbar">
-      <button class="btn btn-sm" id="copyCode" type="button">Kopyahin · Copy</button>
-      <button class="btn btn-sm" id="pasteCode" type="button">I-paste ang code · Load a code</button>
+      <button class="btn btn-sm" id="copyCode" type="button">Kopyahin</button>
+      <button class="btn btn-sm" id="pasteCode" type="button">I-paste ang code</button>
     </div>
   </section>
 
   <footer class="foot">
-    <div>Ang araw, petsa at naka-highlight na gawain ay galing sa oras ng telepono — laging tama, walang ie-edit.</div>
-    <div>Bubukas ang Circle Time videos sa Google Drive sa bagong tab.</div>
+    <div>Ang araw, petsa at naka-highlight na gawain ay galing sa oras ng telepono — laging tama.</div>
+    <div>Kailangan ng access sa Google Drive folder para mabuksan ang mga awitin.</div>
   </footer>
 </div>
 
@@ -243,7 +278,7 @@
     music:'<circle cx="7" cy="17.4" r="2.6"/><circle cx="17.4" cy="15.4" r="2.6"/><path d="M9.6 17.4V6.6l10.4-2.2v11"/>',
     apple:'<path d="M12 7.6c-1-1-2.4-1.6-3.8-1.3C5.9 6.8 4.4 9 4.6 11.6c.3 3.6 2.9 8 5.2 8 .9 0 1.5-.5 2.2-.5s1.3.5 2.2.5c2.3 0 4.9-4.4 5.2-8 .2-2.6-1.3-4.8-3.6-5.3-1.4-.3-2.8.3-3.8 1.3Z"/><path d="M12 7.6c0-1.6.4-3 1.6-4.2"/>',
     pencil:'<path d="M4 20.2l.9-4 11-11a2.2 2.2 0 0 1 3.1 3.1l-11 11-4 .9Z"/><path d="M14.4 5.9l3.1 3.1"/>',
-    blocks:'<rect x="3.4" y="12.6" width="7.6" height="7.6" rx="1.4"/><rect x="13" y="12.6" width="7.6" height="7.6" rx="1.4"/><rect x="8.2" y="3.6" width="7.6" height="7.6" rx="1.4"/>',
+    blocks:'<rect x="3.4" y="12.6" width="7.6" height="7.6" rx="1.8"/><rect x="13" y="12.6" width="7.6" height="7.6" rx="1.8"/><rect x="8.2" y="3.6" width="7.6" height="7.6" rx="1.8"/>',
     plate:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.4"/>',
     moon:'<path d="M19.6 14.8A8.4 8.4 0 0 1 9.2 4.4a8.4 8.4 0 1 0 10.4 10.4Z"/>',
     tree:'<path d="M12 3.4 6.4 11h3.2l-4 5.6h12.8l-4-5.6h3.2L12 3.4Z"/><path d="M12 16.6v4"/>',
@@ -251,13 +286,15 @@
     bath:'<path d="M3.4 11.4h17.2v2.4a5 5 0 0 1-5 5H8.4a5 5 0 0 1-5-5v-2.4Z"/><path d="M6.6 11.4V6.2a2.2 2.2 0 0 1 4.4 0"/><path d="M6 19v1.8M18 19v1.8"/>',
     bed:'<path d="M3.4 18.6v-9M3.4 14h17.2v4.6"/><path d="M7.4 10.6h3.8a2 2 0 0 1 2 2V14H7.4a1.8 1.8 0 0 1 0-3.4Z"/><path d="M13.2 12.6h7.4"/>',
     hands:'<path d="M9 11.4V5.6a1.6 1.6 0 1 1 3.2 0v4.6"/><path d="M12.2 10.2V6.8a1.6 1.6 0 1 1 3.2 0v4.4"/><path d="M15.4 11.4V8.6a1.6 1.6 0 1 1 3.2 0v5.6c0 3.4-2.4 6-5.8 6h-1.6c-2 0-3.2-1-4.2-2.6L5 14.4a1.7 1.7 0 0 1 2.8-1.9L9 14.2"/>',
-    wash:'<path d="M12 3.4c-3 3.4-5 5.8-5 8.2a5 5 0 0 0 10 0c0-2.4-2-4.8-5-8.2Z"/>'
+    wash:'<path d="M12 3.4c-3 3.4-5 5.8-5 8.2a5 5 0 0 0 10 0c0-2.4-2-4.8-5-8.2Z"/>',
+    heart:'<path d="M12 20.2S3.6 15.4 3.6 9.6a4.6 4.6 0 0 1 8.4-2.6 4.6 4.6 0 0 1 8.4 2.6c0 5.8-8.4 10.6-8.4 10.6Z"/>'
   };
   var ICON_NAMES = {
     sun:"Araw · sun", shirt:"Damit · clothes", bowl:"Mangkok · bowl", tooth:"Ngipin · teeth",
     music:"Musika · music", apple:"Prutas · fruit", pencil:"Lapis · pencil", blocks:"Laruan · toys",
     plate:"Pagkain · meal", moon:"Tulog · sleep", tree:"Labas · outdoors", book:"Libro · book",
-    bath:"Paliligo · bath", bed:"Higaan · bed", hands:"Kamay · hands", wash:"Tubig · water"
+    bath:"Paliligo · bath", bed:"Higaan · bed", hands:"Kamay · hands", wash:"Tubig · water",
+    heart:"Puso · heart"
   };
 
   /* ---------- program default routine ---------- */
@@ -267,7 +304,7 @@
       {id:"a2", t:"07:15", icon:"shirt",  tl:"Pagbibihis",              en:"Get dressed",         note:"Bigyan ng dalawang pagpipilian para siya ang pumili."},
       {id:"a3", t:"07:30", icon:"bowl",   tl:"Almusal",                 en:"Breakfast",           note:"Sabihin ang pangalan ng pagkain — pagbilang at kulay."},
       {id:"a4", t:"08:00", icon:"tooth",  tl:"Pagsipilyo at Paghilamos",en:"Brush teeth & wash",  note:"Dalawang minuto. Tulong ang kanta sa pagbilang."},
-      {id:"a5", t:"08:30", icon:"music",  tl:"Circle Time",             en:"Circle time",         note:"Umupo sa banig. Pareho ang sunod-sunod ng kanta araw-araw."},
+      {id:"a5", t:"08:30", icon:"music",  tl:"Circle Time",             en:"Circle time",         note:"Umupo sa banig. Pareho ang sunod-sunod ng awitin araw-araw."},
       {id:"a6", t:"09:30", icon:"apple",  tl:"Meryenda",                en:"Morning snack",       note:"May tubig din. Hayaang siya ang magsalin."},
       {id:"a7", t:"09:45", icon:"pencil", tl:"Gawaing Pampag-aaral",    en:"Learning activity",   note:"Isang gawain lang, 15–20 minuto. Tumigil habang masaya pa."},
       {id:"a8", t:"10:30", icon:"blocks", tl:"Malayang Paglalaro",      en:"Free play",           note:"Siya ang bahala. Sumali lang kung inimbitahan ka."},
@@ -282,16 +319,20 @@
     ];
   }
 
-  /* ---------- Circle Time videos — paste the Drive links here ---------- */
+  /* ---------- Circle Time songs (Sama-Aralan Drive folder) ---------- */
+  var D = "https://drive.google.com/file/d/";
   var VIDEOS = [
-    {name:"Hello Song",        tl:"pambungad",         url:""},
-    {name:"Days of the Week",  tl:"anong araw ngayon", url:""},
-    {name:"Weather Song",      tl:"tingnan sa labas",  url:""},
-    {name:"Calendar & Numbers",tl:"bilangin ang petsa",url:""},
-    {name:"Alphabet Song",     tl:"mga letra",         url:""},
-    {name:"Goodbye Song",      tl:"pangwakas",         url:""}
+    {name:"Hello Hello",        lang:"EN", tl:"pagbati sa umaga",        id:"19PmaCQicZ9bRXJsAMERNAiYoBCILBHzK"},
+    {name:"Lupang Hinirang",    lang:"",   tl:"pambansang awit",         id:"1S9u-4X7Igx9D5XZCIytjMYcgDB4Tkc9L"},
+    {name:"Days of the Week",   lang:"EN", tl:"anong araw ngayon",       id:"1gxqfAFeyOXqa_S2PKxxCTaEkdeIBk8Xa"},
+    {name:"Araw sa Isang Linggo",lang:"TL",tl:"mga araw sa isang linggo",id:"1AJb5sFkR_9jjmyGgXcOJFusVe44V3N_3"},
+    {name:"Months of the Year", lang:"EN", tl:"mga buwan sa isang taon",  id:"1rP0QUXY60vFk9nIRmoo8BqB6eM58mP81"},
+    {name:"Lubi-lubi",          lang:"TL", tl:"mga buwan · awiting bayan",id:"1Q55c8qjb-g31EnHBbvH01xQ5DzKhlbXe"},
+    {name:"The Weather Song",   lang:"EN", tl:"tingnan ang panahon",     id:"1ajZqds1P53Y7bsCgdEgEFtG_smRwWWTW"},
+    {name:"Clean Up Song",      lang:"EN", tl:"ligpitin ang laruan",     id:"1PHS9BvqG5-wrIG9vg0DUDO3MqxdDuJJg"},
+    {name:"Goodbye To You",     lang:"EN", tl:"pangwakas na awit",       id:"1gCe9yxm3pmaB6cEo1CbNAIf9TGFiigYi"}
   ];
-  /* -------------------------------------------------------------------- */
+  /* ------------------------------------------------------------------ */
 
   var DAYS_TL = ["Linggo","Lunes","Martes","Miyerkules","Huwebes","Biyernes","Sabado"];
   var DAYS_EN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
@@ -306,10 +347,7 @@
     return h12+":"+(mm<10?"0"+mm:mm)+" "+ap;
   }
   function stamp(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
-  function esc(s){
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
-                    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-  }
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
   function uid(){return "u"+Math.random().toString(36).slice(2,8)}
 
   /* ---------- state ---------- */
@@ -319,17 +357,21 @@
   function load(){
     try{
       window.localStorage.setItem("__t","1"); window.localStorage.removeItem("__t");
-      var raw = window.localStorage.getItem(STORE);
-      if(raw){
-        var p = JSON.parse(raw);
-        if(p && Object.prototype.toString.call(p.routine)==="[object Array]" && p.routine.length){
-          state.routine = p.routine;
-          state.child   = typeof p.child==="string" ? p.child : "";
-          state.day     = typeof p.day==="string" ? p.day : "";
-          state.done    = Object.prototype.toString.call(p.done)==="[object Array]" ? p.done : [];
-        }
-      }
     }catch(e){ storeOK = false; }
+    if(storeOK){
+      try{
+        var raw = window.localStorage.getItem(STORE);
+        if(raw){
+          var p = JSON.parse(raw);
+          if(p && Object.prototype.toString.call(p.routine)==="[object Array]" && p.routine.length){
+            state.routine = p.routine;
+            state.child   = typeof p.child==="string" ? p.child : "";
+            state.day     = typeof p.day==="string" ? p.day : "";
+            state.done    = Object.prototype.toString.call(p.done)==="[object Array]" ? p.done : [];
+          }
+        }
+      }catch(e){}
+    }
     var today = stamp(new Date());
     if(state.day !== today){ state.day = today; state.done = []; }
     if(!storeOK) document.getElementById("noStore").hidden = false;
@@ -349,15 +391,16 @@
     }catch(e){ codeBox.value = "—"; }
   }
   document.getElementById("copyCode").addEventListener("click", function(){
+    var b = this;
     codeBox.focus(); codeBox.select();
     var ok = false;
     try{ ok = document.execCommand("copy"); }catch(e){}
     if(!ok && navigator.clipboard){ navigator.clipboard.writeText(codeBox.value); ok = true; }
-    this.textContent = ok ? "Nakopya! · Copied" : "Piliin at kopyahin · Select & copy";
-    var b = this; setTimeout(function(){ b.textContent = "Kopyahin · Copy"; }, 2200);
+    b.textContent = ok ? "Nakopya!" : "Piliin at kopyahin";
+    setTimeout(function(){ b.textContent = "Kopyahin"; }, 2200);
   });
   document.getElementById("pasteCode").addEventListener("click", function(){
-    var raw = window.prompt("I-paste ang Setup Code dito · Paste your Setup Code here:");
+    var raw = window.prompt("I-paste ang Setup Code dito · Paste your Setup Code:");
     if(!raw) return;
     try{
       var p = JSON.parse(decodeURIComponent(escape(window.atob(raw.replace(/\s+/g,"")))));
@@ -367,7 +410,7 @@
       state.done    = [];
       sortRoutine(); save(); render(); tick(true);
     }catch(e){
-      window.alert("Hindi tama ang code. Siguraduhing buo ang nakopya.\n\nThat code could not be read — make sure the whole thing was copied.");
+      window.alert("Hindi tama ang code. Siguraduhing buo ang nakopya.\n\nThat code could not be read.");
     }
   });
 
@@ -393,9 +436,9 @@
         li.className = "step editing";
         li.innerHTML =
           '<div class="erow">'+
-            '<label>Oras · Time</label><input type="time" class="f-time" value="'+esc(s.t)+'">'+
+            '<label>Oras</label><input type="time" class="f-time" value="'+esc(s.t)+'">'+
             iconSelect(s.icon)+
-            '<button class="btn btn-sm del f-del" type="button">Alisin · Delete</button>'+
+            '<button class="btn btn-sm del f-del" type="button">Alisin</button>'+
           '</div>'+
           '<div class="erow">'+
             '<input type="text" class="f-tl f-text" value="'+esc(s.tl)+'" placeholder="Pangalan sa Filipino">'+
@@ -403,14 +446,12 @@
           '</div>'+
           '<textarea class="f-note" placeholder="Paalala sa magulang · note for the grown-up">'+esc(s.note||"")+'</textarea>';
       }else{
-        li.className = "step" + (state.done.indexOf(s.id)!==-1 ? " is-done" : "");
+        li.className = "step tint"+((i%5)+1) + (state.done.indexOf(s.id)!==-1 ? " is-done" : "");
         li.innerHTML =
           '<span class="time">'+pretty(s.t)+'</span>'+
           '<span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[s.icon]||ICONS.sun)+'</svg></span>'+
-          '<h2 class="title">'+esc(s.tl)+
-            (s.en ? '<span class="sub">'+esc(s.en)+'</span>' : '')+
-          '</h2>'+
-          '<button class="check" type="button" aria-label="Tapos na · done" aria-pressed="'+
+          '<h2 class="title">'+esc(s.tl)+(s.en?'<span class="sub">'+esc(s.en)+'</span>':'')+'</h2>'+
+          '<button class="check" type="button" aria-label="Tapos na" aria-pressed="'+
             (state.done.indexOf(s.id)!==-1?"true":"false")+'">'+
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.8 9.6 17.4 19 7"/></svg>'+
           '</button>'+
@@ -426,10 +467,11 @@
     for(var i=0;i<VIDEOS.length;i++){
       var v = VIDEOS[i];
       var play = '<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5Z"/></svg></span>';
-      var label = '<span class="vname">'+esc(v.name)+
-                  '<span class="vlen">'+(v.url?esc(v.tl):"wala pang link")+'</span></span>';
-      out += v.url
-        ? '<li><a class="vid" href="'+esc(v.url)+'" target="_blank" rel="noopener">'+play+label+'</a></li>'
+      var chip = v.lang ? '<span class="lang '+(v.lang==="EN"?"en":"tl")+'">'+v.lang+'</span>' : '';
+      var label = '<span class="vname">'+esc(v.name)+chip+
+                  '<span class="vlen">'+esc(v.tl)+'</span></span>';
+      out += v.id
+        ? '<li><a class="vid" href="'+D+esc(v.id)+'/view" target="_blank" rel="noopener">'+play+label+'</a></li>'
         : '<li><span class="vid is-empty">'+play+label+'</span></li>';
     }
     document.getElementById("vids").innerHTML = out;
@@ -505,7 +547,6 @@
     }
   });
 
-  /* pull every edit field back into state */
   function harvest(){
     var rows = stepsEl.children;
     for(var i=0;i<rows.length;i++){
@@ -529,7 +570,7 @@
     if(editing){ harvest(); save(); }
     editing = !editing;
     editBtn.setAttribute("aria-pressed", editing ? "true" : "false");
-    editBtn.textContent = editing ? "Tapos na · Done editing" : "Baguhin ang routine · Edit";
+    editBtn.textContent = editing ? "Tapos na" : "Baguhin ang routine";
     document.getElementById("addbar").hidden = !editing;
     render(); tick(true);
   });
@@ -553,7 +594,7 @@
 
   document.getElementById("addStep").addEventListener("click", function(){
     harvest();
-    state.routine.push({id:uid(), t:"12:00", icon:"blocks", tl:"Bagong gawain", en:"New activity", note:""});
+    state.routine.push({id:uid(), t:"12:00", icon:"heart", tl:"Bagong gawain", en:"New activity", note:""});
     sortRoutine(); save(); render();
   });
 
@@ -564,7 +605,7 @@
   });
 
   document.getElementById("resetAll").addEventListener("click", function(){
-    if(!window.confirm("Ibabalik ang routine sa default ng Sama-Aralan. Mawawala ang mga binago mo.\n\nReset to the Sama-Aralan default? Your changes will be lost.")) return;
+    if(!window.confirm("Ibabalik ang routine sa default ng Sama-Aralan. Mawawala ang mga binago mo.\n\nReset to the Sama-Aralan default?")) return;
     state.routine = defaultRoutine(); state.done = []; save(); render(); tick(true);
   });
 
