@@ -21,9 +21,10 @@
     --ground:#FBFCFE; --surface:#FFFFFF; --surface-2:#F1F5FA;
     --ink:#3A4454; --ink-soft:#6B7789; --ink-faint:#9AA6B6; --line:#E6EDF5;
     --brand:#2FAFB6; --brand-ink:#1E8A90; --brand-soft:#DAF5F6;
-    --sun:#FFD166; --sun-soft:#FFF6E0; --on-sun:#5B4300;
+    --sun:#E8553F; --sun-soft:#FFF6E0; --on-sun:#5B4300;
     --badge:#E8553F;
     --plum:#6F5BC7; --plum-soft:#EBE6FB;
+    --warn:#B86E00; --warn-soft:#FFF4E0; --warn-line:#F0C069;
     --t1:#DFF6EC; --t1i:#1E8A6A;
     --t2:#DEEEFB; --t2i:#2E7FC4;
     --t3:#FFE8DC; --t3i:#C85F39;
@@ -37,8 +38,9 @@
       --ground:#161B22; --surface:#1E242D; --surface-2:#262D38;
       --ink:#E8EDF4; --ink-soft:#A8B3C2; --ink-faint:#7A8695; --line:#313945;
       --brand:#5FD3D9; --brand-ink:#7FE0E5; --brand-soft:#1C3A3D;
-      --sun:#FFD166; --sun-soft:#3A3117; --on-sun:#FFE9AE;
+      --sun:#E8553F; --sun-soft:#3A3117; --on-sun:#FFE9AE;
       --badge:#F0705A; --plum:#B4A5F0; --plum-soft:#2B2541;
+      --warn:#F2C078; --warn-soft:#332A18; --warn-line:#7A5E2A;
       --t1:#1D3A31; --t1i:#7FD9BA; --t2:#1C3145; --t2i:#8CC2EE;
       --t3:#3D2A21; --t3i:#F0A184; --t4:#2B2541; --t4i:#B4A5F0;
       --t5:#3A3119; --t5i:#E8C976;
@@ -49,8 +51,9 @@
     --ground:#161B22; --surface:#1E242D; --surface-2:#262D38;
     --ink:#E8EDF4; --ink-soft:#A8B3C2; --ink-faint:#7A8695; --line:#313945;
     --brand:#5FD3D9; --brand-ink:#7FE0E5; --brand-soft:#1C3A3D;
-    --sun:#FFD166; --sun-soft:#3A3117; --on-sun:#FFE9AE;
+    --sun:#E8553F; --sun-soft:#3A3117; --on-sun:#FFE9AE;
     --badge:#F0705A; --plum:#B4A5F0; --plum-soft:#2B2541;
+    --warn:#F2C078; --warn-soft:#332A18; --warn-line:#7A5E2A;
     --t1:#1D3A31; --t1i:#7FD9BA; --t2:#1C3145; --t2i:#8CC2EE;
     --t3:#3D2A21; --t3i:#F0A184; --t4:#2B2541; --t4i:#B4A5F0;
     --t5:#3A3119; --t5i:#E8C976;
@@ -83,12 +86,26 @@
     box-shadow:0 1px 3px rgba(58,68,84,.12)}
   .langrow{display:flex;justify-content:flex-end;margin-bottom:10px}
 
+  /* ---- name setup ---- */
+  .namecard{background:var(--brand-soft);border-radius:var(--r-md);padding:15px 17px;
+    margin-bottom:12px;display:flex;flex-direction:column;gap:9px}
+  .namecard h2{font-size:17px;color:var(--brand-ink)}
+  .namecard p{margin:0;font-size:13px;color:var(--ink-soft);font-weight:300}
+  .namerow{display:flex;gap:8px;flex-wrap:wrap}
+  .namerow input{flex:1 1 180px;min-width:0;background:var(--surface)}
+  .namebtn{font-family:"Quicksand",sans-serif;font-size:13.5px;font-weight:700;
+    background:var(--brand);color:#fff;border:0;border-radius:99px;padding:9px 20px;cursor:pointer}
+  .changename{font-family:"Poppins",sans-serif;font-size:10.5px;font-weight:600;
+    letter-spacing:.06em;text-transform:uppercase;background:none;border:0;
+    color:var(--brand-ink);cursor:pointer;padding:0 0 0 8px;text-decoration:underline}
+
   /* ---- today ---- */
   .today{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
     padding:20px 22px 17px;display:flex;flex-direction:column;gap:14px}
   .today-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
   .today-text{flex:1 1 210px;min-width:0}
-  #kidLine{font-size:12px;color:var(--ink-soft);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+  #kidLine{font-size:12px;color:var(--ink-soft);font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;display:flex;align-items:baseline;flex-wrap:wrap}
   #dayName{font-size:clamp(32px,9.5vw,52px);color:var(--brand-ink);letter-spacing:-.015em;margin-top:2px}
   #dayAlt{font-size:14px;margin:0;font-weight:300}
   #fullDate{font-size:16px;color:var(--ink-soft);font-weight:400;margin:5px 0 0}
@@ -101,7 +118,8 @@
   .navbtn{flex:none;width:32px;height:38px;border-radius:var(--r-sm);border:1.5px solid var(--line);
     background:var(--surface);color:var(--ink-soft);cursor:pointer;display:grid;place-items:center;
     font-size:15px;font-weight:700;line-height:1;padding:0}
-  .navbtn:hover{border-color:var(--brand);color:var(--brand-ink)}
+  .navbtn:hover:not(:disabled){border-color:var(--brand);color:var(--brand-ink)}
+  .navbtn:disabled{opacity:.3;cursor:default}
   .daystrip{display:flex;gap:5px;margin:0;padding:0;flex:1;min-width:0}
   .daystrip li{flex:1;list-style:none;min-width:0}
   .daystrip button{width:100%;border:2px solid transparent;background:var(--surface-2);
@@ -109,8 +127,9 @@
     font-family:"Quicksand",sans-serif;font-weight:700;font-size:11.5px;letter-spacing:.03em;
     display:block;line-height:1.25}
   .daystrip button .dnum{display:block;font-size:13px;font-variant-numeric:tabular-nums}
-  .daystrip button:hover{color:var(--ink-soft)}
-  .daystrip .is-today button{background:var(--sun);color:var(--on-sun)}
+  .daystrip button:hover:not(:disabled){color:var(--ink-soft)}
+  .daystrip button:disabled{opacity:.35;cursor:default}
+  .daystrip .is-today button{background:var(--sun);color:var(--on-sun);opacity:1}
   .daystrip .is-view button{border-color:var(--brand);color:var(--brand-ink)}
   .daystrip .is-today.is-view button{color:var(--on-sun)}
   .daystrip .has-plan button{position:relative}
@@ -134,12 +153,11 @@
   .chip.special{background:var(--plum-soft);color:var(--plum)}
   .planrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
   .planned{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
-  .planned li{margin:0}
   .planned button{font-family:"Quicksand",sans-serif;font-size:12.5px;font-weight:700;
     background:var(--plum-soft);color:var(--plum);border:1.5px solid transparent;
     border-radius:99px;padding:6px 12px;cursor:pointer}
   .planned button:hover{border-color:var(--plum)}
-  .planempty{font-size:12.5px;color:var(--ink-faint);font-weight:300;margin:0}
+  .planempty,.planhint{font-size:12.5px;color:var(--ink-faint);font-weight:300;margin:0}
 
   /* ---- buttons ---- */
   .controls{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 12px}
@@ -152,6 +170,7 @@
   .btn-plum{color:var(--plum);border-color:var(--plum)}
   .btn:focus-visible,.check:focus-visible,.vid:focus-visible,.langsw button:focus-visible,
   .daystrip button:focus-visible,.navbtn:focus-visible,.planned button:focus-visible,
+  .namebtn:focus-visible,.changename:focus-visible,
   input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--t2i);outline-offset:2px}
 
   /* ---- steps ---- */
@@ -188,11 +207,16 @@
     stroke-linecap:round;stroke-linejoin:round;opacity:0}
   .step.is-done .check{background:var(--brand);border-color:var(--brand)}
   .step.is-done .check svg{stroke:#fff;opacity:1}
+  .circleslot{list-style:none;margin:0}
+  .circleslot .circle{margin-top:0}
 
   /* ---- edit mode ---- */
   .step.editing{grid-template-columns:1fr;gap:9px;border-color:var(--line)}
   .erow{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
   .erow label{font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+  .ecirc{display:flex;align-items:center;gap:7px;font-size:12.5px;font-weight:400;
+    color:var(--ink-soft);text-transform:none;letter-spacing:0}
+  .ecirc input{width:17px;height:17px;accent-color:var(--brand);margin:0}
   input[type="time"],input[type="text"],input[type="date"],select,textarea{
     font-family:"Poppins",sans-serif;font-size:14px;color:var(--ink);background:var(--ground);
     border:1.5px solid var(--line);border-radius:var(--r-sm);padding:9px 11px}
@@ -205,7 +229,7 @@
 
   /* ---- circle time ---- */
   .circle{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
-    padding:20px 22px;margin-top:24px}
+    padding:20px 22px;margin-top:24px;border:2px solid var(--brand-soft)}
   .circle h2{font-size:23px;color:var(--brand-ink)}
   .circle-head{margin-bottom:14px}
   .vids{list-style:none;margin:0;padding:0;display:grid;
@@ -227,10 +251,16 @@
   .lang.tl{background:var(--t1);color:var(--t1i)}
 
   /* ---- setup code ---- */
-  .save{margin-top:24px;background:var(--surface);border-radius:var(--r-lg);
-    box-shadow:var(--shadow);padding:20px 22px}
-  .save h2{font-size:20px}
-  .save p{font-size:13px;color:var(--ink-soft);font-weight:300;margin:7px 0 12px}
+  .save{margin-top:24px;background:var(--warn-soft);border:1.5px solid var(--warn-line);
+    border-radius:var(--r-lg);padding:20px 22px}
+  .save h2{font-size:20px;color:var(--warn);display:flex;align-items:center;gap:9px}
+  .save h2 svg{width:22px;height:22px;fill:none;stroke:var(--warn);stroke-width:2;
+    stroke-linecap:round;stroke-linejoin:round;flex:none}
+  .save p{font-size:13.5px;color:var(--ink);font-weight:300;margin:10px 0 0}
+  .save ol{margin:10px 0 0;padding-left:20px;font-size:13.5px;color:var(--ink);font-weight:300}
+  .save li{margin-bottom:5px}
+  .save li strong{font-weight:600}
+  .save textarea{margin-top:12px;background:var(--surface)}
   .foot{margin-top:26px;padding-top:16px;border-top:1.5px solid var(--line);
     font-size:12.5px;color:var(--ink-faint);font-weight:300;display:flex;flex-direction:column;gap:5px}
 
@@ -258,6 +288,15 @@
   </div>
 
   <div class="banner" id="noStore" hidden></div>
+
+  <section class="namecard" id="nameCard" hidden>
+    <h2 id="nameTitle"></h2>
+    <p id="nameHelp"></p>
+    <div class="namerow">
+      <input type="text" id="childInput" maxlength="28" autocomplete="off">
+      <button class="namebtn" id="saveName" type="button"></button>
+    </div>
+  </section>
 
   <header class="today">
     <div class="today-top">
@@ -293,6 +332,7 @@
       <label class="eyebrow" for="dateJump" id="dateJumpLabel"></label>
       <input type="date" id="dateJump">
     </div>
+    <p class="planhint" id="planHint"></p>
     <div>
       <p class="eyebrow" id="plannedLabel"></p>
       <ul class="planned" id="plannedList"></ul>
@@ -312,21 +352,26 @@
   <ul class="steps" id="steps"></ul>
   <div class="addbar" id="addbar" hidden>
     <button class="btn btn-sm" id="addStep" type="button"></button>
-    <button class="btn btn-sm" id="editName" type="button"></button>
     <button class="btn btn-sm del" id="resetAll" type="button"></button>
   </div>
 
-  <section class="circle">
-    <div class="circle-head">
-      <h2 id="circleTitle">Circle Time</h2>
-      <p class="eyebrow" id="circleSub">&nbsp;</p>
-    </div>
-    <ul class="vids" id="vids"></ul>
-  </section>
+  <div id="circleHome">
+    <section class="circle" id="circleSection">
+      <div class="circle-head">
+        <h2 id="circleTitle">Circle Time</h2>
+        <p class="eyebrow" id="circleSub">&nbsp;</p>
+      </div>
+      <ul class="vids" id="vids"></ul>
+    </section>
+  </div>
 
   <section class="save">
-    <h2 id="saveTitle">Setup Code</h2>
-    <p id="saveBody">&nbsp;</p>
+    <h2 id="saveTitle">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.4v4.8M12 16.8h.01"/><circle cx="12" cy="12" r="9"/></svg>
+      <span id="saveTitleText"></span>
+    </h2>
+    <p id="saveWarn"></p>
+    <ol id="saveSteps"></ol>
     <textarea id="codeBox" rows="3" readonly aria-label="Setup code"></textarea>
     <div class="addbar">
       <button class="btn btn-sm" id="copyCode" type="button"></button>
@@ -359,6 +404,7 @@
     book:'<path d="M4 4.6h5.4c1.4 0 2.6.9 2.6 2v12.8c0-1.1-1.2-2-2.6-2H4V4.6Z"/><path d="M20 4.6h-5.4c-1.4 0-2.6.9-2.6 2v12.8c0-1.1 1.2-2 2.6-2H20V4.6Z"/>',
     bath:'<path d="M3.4 11.4h17.2v2.4a5 5 0 0 1-5 5H8.4a5 5 0 0 1-5-5v-2.4Z"/><path d="M6.6 11.4V6.2a2.2 2.2 0 0 1 4.4 0"/><path d="M6 19v1.8M18 19v1.8"/>',
     bed:'<path d="M3.4 18.6v-9M3.4 14h17.2v4.6"/><path d="M7.4 10.6h3.8a2 2 0 0 1 2 2V14H7.4a1.8 1.8 0 0 1 0-3.4Z"/><path d="M13.2 12.6h7.4"/>',
+    star:'<path d="m12 3.6 2.6 5.3 5.8.85-4.2 4.1 1 5.75L12 16.9l-5.2 2.7 1-5.75-4.2-4.1 5.8-.85L12 3.6Z"/>',
     hands:'<path d="M9 11.4V5.6a1.6 1.6 0 1 1 3.2 0v4.6"/><path d="M12.2 10.2V6.8a1.6 1.6 0 1 1 3.2 0v4.4"/><path d="M15.4 11.4V8.6a1.6 1.6 0 1 1 3.2 0v5.6c0 3.4-2.4 6-5.8 6h-1.6c-2 0-3.2-1-4.2-2.6L5 14.4a1.7 1.7 0 0 1 2.8-1.9L9 14.2"/>',
     wash:'<path d="M12 3.4c-3 3.4-5 5.8-5 8.2a5 5 0 0 0 10 0c0-2.4-2-4.8-5-8.2Z"/>',
     heart:'<path d="M12 20.2S3.6 15.4 3.6 9.6a4.6 4.6 0 0 1 8.4-2.6 4.6 4.6 0 0 1 8.4 2.6c0 5.8-8.4 10.6-8.4 10.6Z"/>',
@@ -367,10 +413,10 @@
   var ICON_NAMES = {
     en:{sun:"Sun",shirt:"Clothes",bowl:"Bowl",tooth:"Teeth",music:"Music",apple:"Fruit",
         pencil:"Pencil",blocks:"Toys",plate:"Meal",moon:"Sleep",tree:"Outdoors",book:"Book",
-        bath:"Bath",bed:"Bed",hands:"Hands",wash:"Water",heart:"Heart",clinic:"Clinic"},
+        bath:"Bath",bed:"Bed",star:"Star",hands:"Hands",wash:"Water",heart:"Heart",clinic:"Clinic"},
     fil:{sun:"Araw",shirt:"Damit",bowl:"Mangkok",tooth:"Ngipin",music:"Musika",apple:"Prutas",
         pencil:"Lapis",blocks:"Laruan",plate:"Pagkain",moon:"Tulog",tree:"Labas",book:"Libro",
-        bath:"Paliligo",bed:"Higaan",hands:"Kamay",wash:"Tubig",heart:"Puso",clinic:"Klinika"}
+        bath:"Paliligo",bed:"Kama",star:"Bituin",hands:"Kamay",wash:"Tubig",heart:"Puso",clinic:"Klinika"}
   };
 
   /* ---------- interface strings ---------- */
@@ -378,9 +424,13 @@
     en:{
       edit:"Edit routine", editDone:"Done editing", notes:"Grown-up notes",
       now:"What's now?", clear:"Clear checks", add:"+ Add activity",
-      kidName:"Child's name", reset:"Reset to default",
-      kidLine:function(n){return n+"'s day"}, noName:"Today's routine",
-      viewLine:function(n){return "Planning for "+n}, viewNoName:"Planning ahead",
+      reset:"Reset to default",
+      kidLine:function(n){return n+"'s Routine"}, noName:"Daily Routine",
+      viewLine:function(n){return "Planning "+n+"'s day"}, viewNoName:"Planning ahead",
+      changeName:"Change",
+      nameTitle:"Whose routine is this?",
+      nameHelp:"Type your child's name and it will appear at the top of every day.",
+      namePlaceholder:"Child's name", saveName:"Save",
       doneCount:"done", nowTag:"Now",
       planAhead:"Plan a day", backToday:"Back to today",
       chipEveryday:"Everyday routine", chipSpecial:"Special plan for this day",
@@ -388,17 +438,21 @@
       removeAsk:"Remove this day's special plan? It will go back to the everyday routine.",
       dateJump:"Go to a date", plannedLabel:"Planned days",
       plannedEmpty:"No special days planned yet.",
+      planHint:"You can plan today and the days ahead. Days that have already passed can't be changed.",
       editingEveryday:"You are editing the everyday routine — this changes every day that has no special plan.",
       editingPlan:function(d){return "You are editing the plan for "+d+" only."},
+      circleHere:"Show the Circle Time songs after this activity",
       circleSub:"Songs in order · tap to open in Drive",
-      saveTitle:"Setup Code",
-      saveBody:"This routine is saved on this phone only. If you change phones or clear your browser data, copy the code below and keep it in your Notes.",
-      copy:"Copy", copied:"Copied!", selectCopy:"Select & copy", paste:"Load a code",
+      saveTitle:"Save your setup — please read",
+      saveWarn:"Your routine is saved only in this browser, on this phone. It will be LOST if you clear your browsing data, switch to another phone, or open this page in a private window.",
+      saveStep1:"<strong>Tap Copy my code</strong> below.",
+      saveStep2:"<strong>Send it to yourself</strong> — paste it into a text message, an email, or your Notes app.",
+      saveStep3:"<strong>To get your routine back</strong> on a new phone, open this page there and tap Load a code.",
+      copy:"Copy my code", copied:"Copied!", selectCopy:"Select & copy", paste:"Load a code",
       pastePrompt:"Paste your Setup Code here:",
       pasteBad:"That code could not be read — make sure the whole thing was copied.",
       resetAsk:"Reset to the Sama-Aralan default routine? Your changes will be lost.",
-      namePrompt:"Child's name:",
-      noStore:"<strong>This browser can't save.</strong> You can still change the routine, but it will be lost when you refresh. Copy the Setup Code below and keep it in your Notes.",
+      noStore:"<strong>This browser can't save.</strong> You can still change the routine, but it will be lost when you refresh. Copy the code at the bottom of this page and keep it safe.",
       foot1:"The day, date and highlighted activity come from this device's clock — always current, nothing to update by hand.",
       foot2:"You need access to the Sama-Aralan Google Drive folder to open the songs.",
       phTitle:"Name in English", phAlt:"Pangalan sa Filipino",
@@ -408,9 +462,13 @@
     fil:{
       edit:"Baguhin ang routine", editDone:"Tapos na", notes:"Paalala sa magulang",
       now:"Ano ngayon?", clear:"Burahin ang tsek", add:"+ Magdagdag ng gawain",
-      kidName:"Pangalan ng bata", reset:"Ibalik sa default",
-      kidLine:function(n){return "Ang araw ni "+n}, noName:"Routine ngayong araw",
-      viewLine:function(n){return "Pinaplano para kay "+n}, viewNoName:"Pagpaplano",
+      reset:"Ibalik sa default",
+      kidLine:function(n){return "Routine ni "+n}, noName:"Araw-araw na Routine",
+      viewLine:function(n){return "Pinaplano ang araw ni "+n}, viewNoName:"Pagpaplano",
+      changeName:"Palitan",
+      nameTitle:"Kaninong routine ito?",
+      nameHelp:"Isulat ang pangalan ng bata at lalabas ito sa itaas araw-araw.",
+      namePlaceholder:"Pangalan ng bata", saveName:"I-save",
       doneCount:"tapos", nowTag:"Ngayon",
       planAhead:"Magplano ng araw", backToday:"Balik sa ngayon",
       chipEveryday:"Pang-araw-araw na routine", chipSpecial:"Espesyal na plano sa araw na ito",
@@ -418,17 +476,21 @@
       removeAsk:"Alisin ang espesyal na plano sa araw na ito? Babalik ito sa pang-araw-araw na routine.",
       dateJump:"Pumunta sa petsa", plannedLabel:"Mga nakaplanong araw",
       plannedEmpty:"Wala pang espesyal na araw.",
+      planHint:"Ngayon at ang mga susunod na araw lang ang puwedeng planuhin. Hindi na mababago ang mga lumipas na araw.",
       editingEveryday:"Binabago mo ang pang-araw-araw na routine — maaapektuhan nito ang lahat ng araw na walang espesyal na plano.",
       editingPlan:function(d){return "Binabago mo lang ang plano para sa "+d+"."},
+      circleHere:"Ipakita ang mga awitin ng Circle Time pagkatapos nito",
       circleSub:"Sunod-sunod na awitin · i-tap para buksan sa Drive",
-      saveTitle:"Setup Code",
-      saveBody:"Nasa telepono mo lang naka-save ang routine na ito. Kung magpapalit ka ng telepono o magbubura ng browser data, kopyahin ang code sa ibaba at i-save sa Notes.",
-      copy:"Kopyahin", copied:"Nakopya!", selectCopy:"Piliin at kopyahin", paste:"I-paste ang code",
+      saveTitle:"I-save ang setup mo — pakibasa",
+      saveWarn:"Ang routine mo ay naka-save lang sa browser ng teleponong ito. MAWAWALA ito kung buburahin mo ang browsing data, lilipat ka ng telepono, o bubuksan mo ito sa private window.",
+      saveStep1:"<strong>Pindutin ang Kopyahin ang code</strong> sa ibaba.",
+      saveStep2:"<strong>Ipadala mo sa sarili mo</strong> — i-paste sa text message, email, o Notes app.",
+      saveStep3:"<strong>Para ibalik ang routine</strong> sa bagong telepono, buksan doon ang page na ito at pindutin ang I-paste ang code.",
+      copy:"Kopyahin ang code", copied:"Nakopya!", selectCopy:"Piliin at kopyahin", paste:"I-paste ang code",
       pastePrompt:"I-paste ang Setup Code dito:",
       pasteBad:"Hindi tama ang code. Siguraduhing buo ang nakopya.",
       resetAsk:"Ibabalik ang routine sa default ng Sama-Aralan. Mawawala ang mga binago mo. Tuloy?",
-      namePrompt:"Pangalan ng bata:",
-      noStore:"<strong>Hindi makapag-save ang browser na ito.</strong> Puwede mo pa ring baguhin ang routine, pero mawawala ito kapag nag-refresh. Kopyahin ang Setup Code sa ibaba.",
+      noStore:"<strong>Hindi makapag-save ang browser na ito.</strong> Puwede mo pa ring baguhin ang routine, pero mawawala ito kapag nag-refresh. Kopyahin ang code sa ibaba ng page.",
       foot1:"Ang araw, petsa at naka-highlight na gawain ay galing sa oras ng telepono — laging tama, walang ie-edit.",
       foot2:"Kailangan ng access sa Sama-Aralan Google Drive folder para mabuksan ang mga awitin.",
       phTitle:"Pangalan sa Filipino", phAlt:"Name in English",
@@ -440,52 +502,55 @@
   /* ---------- program default routine ---------- */
   function defaultRoutine(){
     return [
-      {id:"a1",t:"07:00",icon:"sun",   en:"Wake Up & Stretch",     fil:"Paggising at Pag-unat",
+      {id:"r01",t:"07:00",icon:"sun",   en:"Wake Up & Stretch",  fil:"Paggising at Pag-unat",
         nEn:"Open the curtains together, three big stretches, say good morning.",
         nFil:"Buksan ang kurtina, tatlong malaking unat, magandang umaga."},
-      {id:"a2",t:"07:15",icon:"shirt", en:"Get Dressed",           fil:"Pagbibihis",
-        nEn:"Offer two outfit choices so it stays a decision, not a fight.",
-        nFil:"Bigyan ng dalawang pagpipilian para siya ang pumili."},
-      {id:"a3",t:"07:30",icon:"bowl",  en:"Breakfast",             fil:"Almusal",
+      {id:"r02",t:"07:10",icon:"bed",   en:"Make Bed",           fil:"Pag-aayos ng Kama",
+        nEn:"Pull the sheet up, place the pillow. Neat enough is neat enough.",
+        nFil:"Hilahin ang kumot, ilagay ang unan. Sapat na ang maayos-ayos."},
+      {id:"r03",t:"07:30",icon:"bowl",  en:"Breakfast",          fil:"Almusal",
         nEn:"Name the foods out loud — colours and counting practice.",
         nFil:"Sabihin ang pangalan ng pagkain — pagbilang at kulay."},
-      {id:"a4",t:"08:00",icon:"tooth", en:"Brush Teeth & Wash",    fil:"Pagsipilyo at Paghilamos",
+      {id:"r04",t:"08:00",icon:"tooth", en:"Brush Teeth & Wash", fil:"Pagsipilyo at Paghilamos",
         nEn:"Two minutes. A song makes the timing obvious.",
         nFil:"Dalawang minuto. Tulong ang kanta sa pagbilang."},
-      {id:"a5",t:"08:30",icon:"music", en:"Circle Time",           fil:"Circle Time",
+      {id:"r05",t:"08:15",icon:"shirt", en:"Get Dressed",        fil:"Pagbibihis",
+        nEn:"Offer two outfit choices so it stays a decision, not a fight.",
+        nFil:"Bigyan ng dalawang pagpipilian para siya ang pumili."},
+      {id:"r06",t:"08:30",icon:"music", en:"Circle Time",        fil:"Circle Time", circle:true,
         nEn:"Sit on the mat. The same song order every day builds the habit.",
         nFil:"Umupo sa banig. Pareho ang sunod-sunod ng awitin araw-araw."},
-      {id:"a6",t:"09:30",icon:"apple", en:"Morning Snack",         fil:"Meryenda",
+      {id:"r07",t:"09:30",icon:"apple", en:"Morning Snack",      fil:"Meryenda",
         nEn:"Water too. Let them pour it themselves.",
         nFil:"May tubig din. Hayaang siya ang magsalin."},
-      {id:"a7",t:"09:45",icon:"pencil",en:"Learning Activity",     fil:"Gawaing Pampag-aaral",
+      {id:"r08",t:"09:45",icon:"pencil",en:"Learning Activity",  fil:"Gawaing Pampag-aaral",
         nEn:"One focused task, 15–20 minutes. Stop while it's still fun.",
         nFil:"Isang gawain lang, 15–20 minuto. Tumigil habang masaya pa."},
-      {id:"a8",t:"10:30",icon:"blocks",en:"Free Play",             fil:"Malayang Paglalaro",
+      {id:"r09",t:"10:30",icon:"blocks",en:"Free Play",          fil:"Malayang Paglalaro",
         nEn:"Child-led. Join in only if invited.",
         nFil:"Siya ang bahala. Sumali lang kung inimbitahan ka."},
-      {id:"a9",t:"11:30",icon:"plate", en:"Lunch",                 fil:"Tanghalian",
+      {id:"r10",t:"11:30",icon:"plate", en:"Lunch",              fil:"Tanghalian",
         nEn:"Tidy the toys first so the transition is clear.",
         nFil:"Ligpitin muna ang laruan para malinaw ang paglipat."},
-      {id:"b1",t:"12:15",icon:"moon",  en:"Quiet Time / Nap",      fil:"Oras ng Tulog",
+      {id:"r11",t:"12:15",icon:"moon",  en:"Quiet Time / Nap",   fil:"Oras ng Tulog",
         nEn:"Dim the room. Rest counts even without sleep.",
         nFil:"Padilimin ang kuwarto. Pahinga lang, okay na rin."},
-      {id:"b2",t:"14:00",icon:"tree",  en:"Outdoor Play",          fil:"Paglalaro sa Labas",
+      {id:"r12",t:"14:00",icon:"tree",  en:"Outdoor Play",       fil:"Paglalaro sa Labas",
         nEn:"Sunshine and big movement — the afternoon reset.",
         nFil:"Sikat ng araw at malayang paggalaw."},
-      {id:"b3",t:"15:00",icon:"apple", en:"Afternoon Snack",       fil:"Meryenda sa Hapon",
+      {id:"r13",t:"15:00",icon:"apple", en:"Afternoon Snack",    fil:"Meryenda sa Hapon",
         nEn:"A good moment to talk through what happened this morning.",
         nFil:"Magandang oras para pag-usapan ang umaga."},
-      {id:"b4",t:"15:30",icon:"book",  en:"Story Time",            fil:"Oras ng Kuwento",
+      {id:"r14",t:"15:30",icon:"book",  en:"Story Time",         fil:"Oras ng Kuwento",
         nEn:"Let them turn the pages and guess what happens next.",
         nFil:"Hayaang siya ang magbukas ng pahina at manghula."},
-      {id:"b5",t:"17:30",icon:"plate", en:"Dinner",                fil:"Hapunan",
+      {id:"r15",t:"17:30",icon:"plate", en:"Dinner",             fil:"Hapunan",
         nEn:"Screens away. Everyone at the table.",
         nFil:"Walang screen. Sabay-sabay sa hapag."},
-      {id:"b6",t:"18:30",icon:"bath",  en:"Bath & Pyjamas",        fil:"Paliligo at Pagbibihis",
+      {id:"r16",t:"18:30",icon:"bath",  en:"Bath",               fil:"Paliligo",
         nEn:"The wind-down starts here — lights lower from now on.",
         nFil:"Simula ng pagpapakalma — hinaan na ang ilaw."},
-      {id:"b7",t:"19:15",icon:"bed",   en:"Bedtime Story",         fil:"Kuwento Bago Matulog",
+      {id:"r17",t:"19:15",icon:"star",  en:"Bedtime Story",      fil:"Kuwento Bago Matulog",
         nEn:"Two books, then lights out. The same words every night.",
         nFil:"Dalawang libro, patay ilaw. Parehong salita gabi-gabi."}
     ];
@@ -526,7 +591,7 @@
     fil:["Enero","Pebrero","Marso","Abril","Mayo","Hunyo","Hulyo",
          "Agosto","Setyembre","Oktubre","Nobyembre","Disyembre"]
   };
-  var STORE = "samaAralanRoutine.v4";
+  var STORE = "samaAralanRoutine.v5";
 
   function pad(n){ return n<10 ? "0"+n : ""+n }
   function iso(d){ return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate()) }
@@ -543,12 +608,13 @@
   /* ---------- state ---------- */
   var storeOK = true;
   var state = {lang:"en", child:"", routine:defaultRoutine(), plans:{}, done:{}};
-  var viewIso = iso(new Date());     /* the date currently on screen */
-  var weekAnchor = new Date();       /* any date inside the week shown in the strip */
+  var viewIso = iso(new Date());
+  var weekAnchor = new Date();
 
   function L(){ return UI[state.lang] || UI.en; }
   function todayIso(){ return iso(new Date()) }
   function isToday(){ return viewIso === todayIso() }
+  function isPast(d){ return d < todayIso() }
   function hasPlan(d){ return Object.prototype.hasOwnProperty.call(state.plans, d) }
   function activeRoutine(){ return hasPlan(viewIso) ? state.plans[viewIso] : state.routine }
   function doneList(){
@@ -560,9 +626,6 @@
   function noteOf(s){ return state.lang==="en" ? (s.nEn||s.nFil||"") : (s.nFil||s.nEn||"") }
   function longDate(d){
     return DAYS[state.lang][d.getDay()]+", "+MONTHS[state.lang][d.getMonth()]+" "+d.getDate();
-  }
-  function shortDate(d){
-    return MONTHS[state.lang][d.getMonth()].slice(0,3)+" "+d.getDate();
   }
 
   function normalise(list){
@@ -584,11 +647,8 @@
     }
     return out;
   }
-  /* drop plans and checks that are well in the past, so storage can't grow forever */
   function prune(){
-    var cutPlan = iso(addDays(new Date(), -7));
-    var cutDone = iso(addDays(new Date(), -14));
-    var k;
+    var cutPlan = todayIso(), cutDone = iso(addDays(new Date(), -14)), k;
     for(k in state.plans){ if(Object.prototype.hasOwnProperty.call(state.plans,k) && k < cutPlan) delete state.plans[k]; }
     for(k in state.done){  if(Object.prototype.hasOwnProperty.call(state.done,k)  && k < cutDone) delete state.done[k]; }
   }
@@ -632,10 +692,7 @@
     try{ window.localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
     refreshCode();
   }
-  function sortActive(){
-    var r = activeRoutine();
-    r.sort(function(a,b){return mins(a.t)-mins(b.t)});
-  }
+  function sortActive(){ activeRoutine().sort(function(a,b){return mins(a.t)-mins(b.t)}); }
 
   /* ---------- setup code ---------- */
   var codeBox = document.getElementById("codeBox");
@@ -653,7 +710,7 @@
     try{ ok = document.execCommand("copy"); }catch(e){}
     if(!ok && navigator.clipboard){ navigator.clipboard.writeText(codeBox.value); ok = true; }
     b.textContent = ok ? L().copied : L().selectCopy;
-    setTimeout(function(){ b.textContent = L().copy; }, 2200);
+    setTimeout(function(){ b.textContent = L().copy; }, 2400);
   });
   document.getElementById("pasteCode").addEventListener("click", function(){
     var raw = window.prompt(L().pastePrompt);
@@ -673,14 +730,16 @@
           }
         }
       }
-      state.done = {};
-      goToDate(todayIso());
+      state.done = {}; prune();
+      viewIso = todayIso(); weekAnchor = new Date();
       save(); applyLang();
     }catch(e){ window.alert(L().pasteBad); }
   });
 
   /* ---------- render ---------- */
-  var stepsEl = document.getElementById("steps");
+  var stepsEl  = document.getElementById("steps");
+  var circleEl = document.getElementById("circleSection");
+  var circleHome = document.getElementById("circleHome");
   var editing = false, showNotes = false, plannerOpen = false;
 
   function iconSelect(cur){
@@ -690,6 +749,30 @@
       out += '<option value="'+k+'"'+(k===cur?' selected':'')+'>'+esc(names[k]||k)+'</option>';
     }}
     return out+'</select>';
+  }
+
+  /* put the songs right under whichever activity is flagged, else back at the bottom */
+  function placeCircle(){
+    var host = null, rows = stepsEl.children, list = activeRoutine();
+    var flagged = null;
+    for(var i=0;i<list.length;i++){ if(list[i].circle){ flagged = list[i].id; break; } }
+    if(flagged && !editing){
+      for(var j=0;j<rows.length;j++){
+        if(rows[j].getAttribute("data-id") === flagged){ host = rows[j]; break; }
+      }
+    }
+    var slot = document.getElementById("circleSlot");
+    if(host){
+      if(!slot){
+        slot = document.createElement("li");
+        slot.id = "circleSlot"; slot.className = "circleslot";
+      }
+      if(host.nextSibling !== slot) stepsEl.insertBefore(slot, host.nextSibling);
+      if(circleEl.parentNode !== slot) slot.appendChild(circleEl);
+    }else{
+      if(circleEl.parentNode !== circleHome) circleHome.appendChild(circleEl);
+      if(slot && slot.parentNode) slot.parentNode.removeChild(slot);
+    }
   }
 
   function render(){
@@ -714,7 +797,9 @@
             '<input type="text" class="f-pri f-text" value="'+esc(priV)+'" placeholder="'+esc(t.phTitle)+'">'+
             '<input type="text" class="f-sec f-text" value="'+esc(secV)+'" placeholder="'+esc(t.phAlt)+'">'+
           '</div>'+
-          '<textarea class="f-note" placeholder="'+esc(t.phNote)+'">'+esc(nPri)+'</textarea>';
+          '<textarea class="f-note" placeholder="'+esc(t.phNote)+'">'+esc(nPri)+'</textarea>'+
+          '<label class="ecirc"><input type="checkbox" class="f-circle"'+(s.circle?' checked':'')+'>'+
+            esc(t.circleHere)+'</label>';
       }else{
         var second = sec(s), n = noteOf(s), isDone = done.indexOf(s.id)!==-1;
         li.className = "step tint"+((i%5)+1) + (isDone && canCheck ? " is-done" : "") +
@@ -732,6 +817,7 @@
       }
       stepsEl.appendChild(li);
     }
+    placeCircle();
     paint();
   }
 
@@ -764,35 +850,45 @@
   var dayNameEl=document.getElementById("dayName"), dayAltEl=document.getElementById("dayAlt"),
       fullDateEl=document.getElementById("fullDate"), clockEl=document.getElementById("clock"),
       stripEl=document.getElementById("daystrip"), kidEl=document.getElementById("kidLine"),
-      plannerEl=document.getElementById("planner");
+      plannerEl=document.getElementById("planner"), nameCard=document.getElementById("nameCard");
+
+  function drawName(){
+    var t = L();
+    nameCard.hidden = !!state.child;
+    document.getElementById("nameTitle").textContent = t.nameTitle;
+    document.getElementById("nameHelp").textContent  = t.nameHelp;
+    document.getElementById("childInput").placeholder = t.namePlaceholder;
+    document.getElementById("saveName").textContent  = t.saveName;
+  }
 
   function drawHeader(){
-    var d = fromIso(viewIso), other = state.lang==="en" ? "fil" : "en";
+    var d = fromIso(viewIso), other = state.lang==="en" ? "fil" : "en", t = L();
     dayNameEl.textContent  = DAYS[state.lang][d.getDay()];
     dayAltEl.textContent   = DAYS[other][d.getDay()];
     fullDateEl.textContent = MONTHS[state.lang][d.getMonth()]+" "+d.getDate()+", "+d.getFullYear();
-    if(isToday()){
-      kidEl.textContent = state.child ? L().kidLine(state.child) : L().noName;
-    }else{
-      kidEl.textContent = state.child ? L().viewLine(state.child) : L().viewNoName;
-    }
+    var label;
+    if(isToday()) label = state.child ? t.kidLine(state.child) : t.noName;
+    else          label = state.child ? t.viewLine(state.child) : t.viewNoName;
+    kidEl.innerHTML = esc(label) +
+      (state.child ? '<button class="changename" id="changeName" type="button">'+esc(t.changeName)+'</button>' : '');
   }
 
   function drawWeek(){
-    var start = addDays(weekAnchor, -weekAnchor.getDay());   /* Sunday of that week */
+    var start = addDays(weekAnchor, -weekAnchor.getDay());
     var tIso = todayIso(), html = "";
     for(var i=0;i<7;i++){
-      var d = addDays(start, i), di = iso(d);
-      var cls = [];
+      var d = addDays(start, i), di = iso(d), cls = [];
       if(di === tIso) cls.push("is-today");
       if(di === viewIso) cls.push("is-view");
       if(hasPlan(di)) cls.push("has-plan");
       html += '<li class="'+cls.join(" ")+'">'+
-                '<button type="button" data-date="'+di+'">'+SHORT[state.lang][d.getDay()]+
-                  '<span class="dnum">'+d.getDate()+'</span>'+
+                '<button type="button" data-date="'+di+'"'+(isPast(di)?' disabled':'')+'>'+
+                  SHORT[state.lang][d.getDay()]+'<span class="dnum">'+d.getDate()+'</span>'+
                 '</button></li>';
     }
     stripEl.innerHTML = html;
+    var thisWeekStart = addDays(new Date(), -(new Date()).getDay());
+    document.getElementById("prevWeek").disabled = iso(start) <= iso(thisWeekStart);
   }
 
   function drawPlanner(){
@@ -801,26 +897,28 @@
     document.getElementById("planAhead").setAttribute("aria-pressed", plannerOpen?"true":"false");
     if(!plannerOpen) return;
 
-    var chip = document.getElementById("planChip");
-    var special = hasPlan(viewIso);
+    var chip = document.getElementById("planChip"), special = hasPlan(viewIso);
     chip.className = "chip " + (special ? "special" : "everyday");
     chip.textContent = special ? t.chipSpecial : t.chipEveryday;
 
-    document.getElementById("makePlan").hidden   = special;
+    document.getElementById("makePlan").hidden = special;
     document.getElementById("makePlan").textContent = t.makePlan;
     document.getElementById("removePlan").hidden = !special;
     document.getElementById("removePlan").textContent = t.removePlan;
 
     var back = document.getElementById("backToday");
-    back.hidden = isToday();
-    back.textContent = t.backToday;
+    back.hidden = isToday(); back.textContent = t.backToday;
 
     document.getElementById("dateJumpLabel").textContent = t.dateJump;
-    document.getElementById("dateJump").value = viewIso;
+    var dj = document.getElementById("dateJump");
+    dj.min = todayIso(); dj.value = viewIso;
+    document.getElementById("planHint").textContent = t.planHint;
     document.getElementById("plannedLabel").textContent = t.plannedLabel;
 
     var keys = [], k;
-    for(k in state.plans){ if(Object.prototype.hasOwnProperty.call(state.plans,k)) keys.push(k); }
+    for(k in state.plans){
+      if(Object.prototype.hasOwnProperty.call(state.plans,k) && !isPast(k)) keys.push(k);
+    }
     keys.sort();
     var out = "";
     for(var i=0;i<keys.length;i++){
@@ -828,8 +926,8 @@
              esc(longDate(fromIso(keys[i])))+'</button></li>';
     }
     document.getElementById("plannedList").innerHTML = out;
-    document.getElementById("plannedEmpty").hidden = keys.length > 0;
-    document.getElementById("plannedEmpty").textContent = t.plannedEmpty;
+    var empty = document.getElementById("plannedEmpty");
+    empty.hidden = keys.length > 0; empty.textContent = t.plannedEmpty;
   }
 
   function drawEditingWhat(){
@@ -842,9 +940,9 @@
   }
 
   function goToDate(d){
+    if(isPast(d)) return;
     if(editing){ harvest(); save(); }
-    viewIso = d;
-    weekAnchor = fromIso(d);
+    viewIso = d; weekAnchor = fromIso(d);
     drawHeader(); drawWeek(); drawPlanner(); render(); drawEditingWhat(); tick(true);
   }
 
@@ -852,10 +950,7 @@
   var lastTick = "";
   function tick(force){
     var now = new Date(), key = todayIso()+"|"+state.lang+"|"+viewIso;
-    if(force || key !== lastTick){
-      lastTick = key;
-      drawHeader(); drawWeek();
-    }
+    if(force || key !== lastTick){ lastTick = key; drawHeader(); drawWeek(); }
     var h=now.getHours(), mm=now.getMinutes(), ap=h<12?"AM":"PM", h12=h%12; if(h12===0)h12=12;
     clockEl.textContent = h12+":"+(mm<10?"0"+mm:mm)+" "+ap;
 
@@ -869,7 +964,7 @@
     }
     var list = activeRoutine(), nowMins = h*60+mm, cur = -1;
     for(var k=0;k<list.length;k++){ if(mins(list[k].t) <= nowMins) cur = k; }
-    var rows = stepsEl.children;
+    var rows = stepsEl.querySelectorAll(".step");
     for(var j=0;j<rows.length;j++){
       var on = (j === cur);
       if(rows[j].classList.contains("is-now") !== on){
@@ -895,11 +990,12 @@
     document.getElementById("planAhead").textContent   = t.planAhead;
     document.getElementById("resetChecks").textContent = t.clear;
     document.getElementById("addStep").textContent     = t.add;
-    document.getElementById("editName").textContent    = t.kidName;
     document.getElementById("resetAll").textContent    = t.reset;
     document.getElementById("circleSub").textContent   = t.circleSub;
-    document.getElementById("saveTitle").textContent   = t.saveTitle;
-    document.getElementById("saveBody").textContent    = t.saveBody;
+    document.getElementById("saveTitleText").textContent = t.saveTitle;
+    document.getElementById("saveWarn").textContent    = t.saveWarn;
+    document.getElementById("saveSteps").innerHTML =
+      "<li>"+t.saveStep1+"</li><li>"+t.saveStep2+"</li><li>"+t.saveStep3+"</li>";
     document.getElementById("copyCode").textContent    = t.copy;
     document.getElementById("pasteCode").textContent   = t.paste;
     document.getElementById("foot1").textContent       = t.foot1;
@@ -907,7 +1003,8 @@
     var ns = document.getElementById("noStore");
     ns.innerHTML = t.noStore; ns.hidden = storeOK;
 
-    renderVideos(); drawHeader(); drawWeek(); drawPlanner(); render(); drawEditingWhat(); tick(true);
+    drawName(); renderVideos(); drawHeader(); drawWeek(); drawPlanner();
+    render(); drawEditingWhat(); tick(true);
   }
 
   document.getElementById("langsw").addEventListener("click", function(ev){
@@ -916,19 +1013,36 @@
     var next = b.getAttribute("data-lang");
     if(next === state.lang) return;
     if(editing) harvest();
-    state.lang = next;
-    save(); applyLang();
+    state.lang = next; save(); applyLang();
+  });
+
+  /* ---------- child's name ---------- */
+  function commitName(){
+    var v = document.getElementById("childInput").value.trim().slice(0,28);
+    if(!v) return;
+    state.child = v; save(); drawName(); drawHeader();
+  }
+  document.getElementById("saveName").addEventListener("click", commitName);
+  document.getElementById("childInput").addEventListener("keydown", function(ev){
+    if(ev.key === "Enter"){ ev.preventDefault(); commitName(); }
+  });
+  kidEl.addEventListener("click", function(ev){
+    if(!ev.target.closest || !ev.target.closest("#changeName")) return;
+    nameCard.hidden = false;
+    var inp = document.getElementById("childInput");
+    inp.value = state.child; inp.focus(); inp.select();
   });
 
   /* ---------- week strip + planner actions ---------- */
   stripEl.addEventListener("click", function(ev){
     var b = ev.target.closest ? ev.target.closest("button[data-date]") : null;
-    if(!b) return;
+    if(!b || b.disabled) return;
     var d = b.getAttribute("data-date");
-    if(d !== todayIso() && !plannerOpen){ plannerOpen = true; }
+    if(d !== todayIso() && !plannerOpen) plannerOpen = true;
     goToDate(d);
   });
   document.getElementById("prevWeek").addEventListener("click", function(){
+    if(this.disabled) return;
     weekAnchor = addDays(weekAnchor, -7); drawWeek();
   });
   document.getElementById("nextWeek").addEventListener("click", function(){
@@ -937,14 +1051,13 @@
   document.getElementById("planAhead").addEventListener("click", function(){
     plannerOpen = !plannerOpen; drawPlanner();
   });
-  document.getElementById("backToday").addEventListener("click", function(){
-    goToDate(todayIso());
-  });
+  document.getElementById("backToday").addEventListener("click", function(){ goToDate(todayIso()); });
   document.getElementById("dateJump").addEventListener("change", function(){
-    if(this.value) goToDate(this.value);
+    if(this.value && !isPast(this.value)) goToDate(this.value);
+    else this.value = viewIso;
   });
   document.getElementById("makePlan").addEventListener("click", function(){
-    if(editing){ harvest(); }
+    if(editing) harvest();
     state.plans[viewIso] = clone(state.routine);
     save(); drawWeek(); drawPlanner(); render(); drawEditingWhat();
   });
@@ -975,18 +1088,24 @@
       var row = del.closest("li"), rid = row.getAttribute("data-id");
       harvest();
       var list = activeRoutine();
-      for(var i=0;i<list.length;i++){
-        if(list[i].id === rid){ list.splice(i,1); break; }
-      }
+      for(var i=0;i<list.length;i++){ if(list[i].id === rid){ list.splice(i,1); break; } }
       save(); render();
     }
+  });
+  /* only one activity can host the songs */
+  stepsEl.addEventListener("change", function(ev){
+    if(!ev.target.classList || !ev.target.classList.contains("f-circle")) return;
+    if(!ev.target.checked) return;
+    var boxes = stepsEl.querySelectorAll(".f-circle");
+    for(var i=0;i<boxes.length;i++){ if(boxes[i] !== ev.target) boxes[i].checked = false; }
   });
 
   function harvest(){
     var rows = stepsEl.children, list = activeRoutine();
     for(var i=0;i<rows.length;i++){
       var id = rows[i].getAttribute("data-id");
-      var tI = rows[i].querySelector(".f-time"); if(!tI) continue;
+      var tI = rows[i].querySelector ? rows[i].querySelector(".f-time") : null;
+      if(!tI) continue;
       for(var j=0;j<list.length;j++){
         if(list[j].id !== id) continue;
         var s = list[j];
@@ -995,8 +1114,10 @@
         var priV = rows[i].querySelector(".f-pri").value;
         var secV = rows[i].querySelector(".f-sec").value;
         var nV   = rows[i].querySelector(".f-note").value;
+        var cB   = rows[i].querySelector(".f-circle");
         if(state.lang === "en"){ s.en = priV || L().newAct; s.fil = secV; s.nEn = nV; }
         else                   { s.fil = priV || L().newAct; s.en  = secV; s.nFil = nV; }
+        if(cB){ if(cB.checked) s.circle = true; else delete s.circle; }
         break;
       }
     }
@@ -1024,7 +1145,7 @@
   document.getElementById("jumpNow").addEventListener("click", function(){
     if(!isToday()) goToDate(todayIso());
     var el = stepsEl.querySelector(".is-now") || stepsEl.firstChild;
-    if(el) el.scrollIntoView({behavior:"smooth", block:"center"});
+    if(el && el.scrollIntoView) el.scrollIntoView({behavior:"smooth", block:"center"});
   });
 
   document.getElementById("resetChecks").addEventListener("click", function(){
@@ -1036,12 +1157,6 @@
     activeRoutine().push({id:uid(), t:"12:00", icon:"heart",
       en:UI.en.newAct, fil:UI.fil.newAct, nEn:"", nFil:""});
     sortActive(); save(); render();
-  });
-
-  document.getElementById("editName").addEventListener("click", function(){
-    var n = window.prompt(L().namePrompt, state.child || "");
-    if(n === null) return;
-    state.child = n.trim().slice(0,28); save(); drawHeader();
   });
 
   document.getElementById("resetAll").addEventListener("click", function(){
@@ -1057,10 +1172,7 @@
   state.routine.sort(function(a,b){return mins(a.t)-mins(b.t)});
   applyLang();
   refreshCode();
-  setInterval(function(){
-    if(viewIso !== todayIso() || editing){ tick(); return; }
-    tick();
-  }, 20000);
+  setInterval(function(){ tick(); }, 20000);
 })();
 </script>
 
