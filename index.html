@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fil">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Sama-Aralan daily routine board — bilingual, personalised by each family.">
+<meta name="description" content="Sama-Aralan daily routine board — English or Filipino, personalised by each family.">
 <meta name="theme-color" content="#2FAFB6">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -68,10 +68,19 @@
     font-weight:700;margin:0;line-height:1.2}
   .eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);
     font-weight:600;margin:0}
-  .en{color:var(--ink-faint);font-weight:300}
+  .alt{color:var(--ink-faint);font-weight:300}
 
   .banner{background:var(--sun-soft);border:1.5px solid var(--sun);border-radius:var(--r-md);
     padding:12px 15px;font-size:13.5px;margin-bottom:14px;color:var(--ink)}
+
+  /* ---- language switch ---- */
+  .langsw{display:inline-flex;background:var(--surface-2);border-radius:99px;padding:3px;gap:2px}
+  .langsw button{font-family:"Quicksand",sans-serif;font-size:13px;font-weight:700;
+    border:0;background:transparent;color:var(--ink-faint);border-radius:99px;
+    padding:7px 16px;cursor:pointer}
+  .langsw button[aria-pressed="true"]{background:var(--surface);color:var(--brand-ink);
+    box-shadow:0 1px 3px rgba(58,68,84,.12)}
+  .langrow{display:flex;justify-content:flex-end;margin-bottom:10px}
 
   /* ---- today ---- */
   .today{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
@@ -80,7 +89,7 @@
   .today-text{flex:1 1 210px;min-width:0}
   #kidLine{font-size:12px;color:var(--ink-soft);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
   #dayName{font-size:clamp(34px,10vw,54px);color:var(--brand-ink);letter-spacing:-.015em;margin-top:2px}
-  #dayEn{font-size:14px;margin:0;font-weight:300}
+  #dayAlt{font-size:14px;margin:0;font-weight:300}
   #fullDate{font-size:16px;color:var(--ink-soft);font-weight:400;margin:5px 0 0}
   #clock{font-family:"Quicksand",sans-serif;font-variant-numeric:tabular-nums;font-size:21px;
     font-weight:700;background:var(--brand-soft);color:var(--brand-ink);
@@ -105,7 +114,7 @@
   .btn:hover{color:var(--brand-ink);border-color:var(--brand)}
   .btn[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
   .btn-sm{font-size:12.5px;padding:7px 13px}
-  .btn:focus-visible,.check:focus-visible,.vid:focus-visible,
+  .btn:focus-visible,.check:focus-visible,.vid:focus-visible,.langsw button:focus-visible,
   input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--t2i);outline-offset:2px}
 
   /* ---- steps ---- */
@@ -177,8 +186,6 @@
     letter-spacing:.08em;border-radius:99px;padding:2px 6px;margin-left:6px;vertical-align:1.5px}
   .lang.en{background:var(--t2);color:var(--t2i)}
   .lang.tl{background:var(--t1);color:var(--t1i)}
-  .vid.is-empty{border-style:dashed;border-color:var(--line)}
-  .vid.is-empty .play{background:var(--ink-faint)}
 
   /* ---- setup code ---- */
   .save{margin-top:24px;background:var(--surface);border-radius:var(--r-lg);
@@ -201,18 +208,21 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="banner" id="noStore" hidden>
-    <strong>Hindi makapag-save ang browser na ito.</strong> Puwede mo pa ring baguhin ang routine,
-    pero mawawala ito kapag nag-refresh. Kopyahin ang <em>Setup Code</em> sa ibaba.
-    <span class="en">— This browser can't save. Copy your Setup Code below.</span>
+  <div class="langrow">
+    <div class="langsw" id="langsw" role="group" aria-label="Language / Wika">
+      <button type="button" data-lang="en"  aria-pressed="true">English</button>
+      <button type="button" data-lang="fil" aria-pressed="false">Filipino</button>
+    </div>
   </div>
+
+  <div class="banner" id="noStore" hidden></div>
 
   <header class="today">
     <div class="today-top">
       <div class="today-text">
-        <p class="eyebrow" id="kidLine">Ang araw ni <span id="kidName">bunso</span></p>
+        <p class="eyebrow" id="kidLine">&nbsp;</p>
         <h1 id="dayName">&nbsp;</h1>
-        <p class="en" id="dayEn">&nbsp;</p>
+        <p class="alt" id="dayAlt">&nbsp;</p>
         <p id="fullDate">&nbsp;</p>
       </div>
       <div id="clock">&nbsp;</div>
@@ -220,49 +230,45 @@
     <ul class="daystrip" id="daystrip"></ul>
     <div class="progress-row">
       <div class="bar"><span id="progressBar"></span></div>
-      <div id="progressText">0 / 0</div>
+      <div id="progressText">&nbsp;</div>
     </div>
   </header>
 
   <div class="controls">
-    <button class="btn" id="editToggle" type="button" aria-pressed="false">Baguhin ang routine</button>
-    <button class="btn" id="notesToggle" type="button" aria-pressed="false">Paalala sa magulang</button>
-    <button class="btn" id="jumpNow" type="button">Ano ngayon?</button>
-    <button class="btn" id="resetChecks" type="button">Burahin ang tsek</button>
+    <button class="btn" id="editToggle" type="button" aria-pressed="false"></button>
+    <button class="btn" id="notesToggle" type="button" aria-pressed="false"></button>
+    <button class="btn" id="jumpNow" type="button"></button>
+    <button class="btn" id="resetChecks" type="button"></button>
   </div>
 
   <ul class="steps" id="steps"></ul>
   <div class="addbar" id="addbar" hidden>
-    <button class="btn btn-sm" id="addStep" type="button">+ Magdagdag ng gawain</button>
-    <button class="btn btn-sm" id="editName" type="button">Pangalan ng bata</button>
-    <button class="btn btn-sm del" id="resetAll" type="button">Ibalik sa default</button>
+    <button class="btn btn-sm" id="addStep" type="button"></button>
+    <button class="btn btn-sm" id="editName" type="button"></button>
+    <button class="btn btn-sm del" id="resetAll" type="button"></button>
   </div>
 
   <section class="circle">
     <div class="circle-head">
-      <h2>Circle Time</h2>
-      <p class="eyebrow">Sunod-sunod na awitin · tap to open in Drive</p>
+      <h2 id="circleTitle">Circle Time</h2>
+      <p class="eyebrow" id="circleSub">&nbsp;</p>
     </div>
     <ul class="vids" id="vids"></ul>
   </section>
 
   <section class="save">
-    <h2>Setup Code</h2>
-    <p>
-      Nasa telepono mo lang naka-save ang routine na ito. Kung magpapalit ka ng telepono o
-      magbubura ng browser data, kopyahin ang code sa ibaba at i-save sa Notes.
-      <span class="en">Your routine is saved on this phone only — copy this code to move it.</span>
-    </p>
+    <h2 id="saveTitle">Setup Code</h2>
+    <p id="saveBody">&nbsp;</p>
     <textarea id="codeBox" rows="3" readonly aria-label="Setup code"></textarea>
     <div class="addbar">
-      <button class="btn btn-sm" id="copyCode" type="button">Kopyahin</button>
-      <button class="btn btn-sm" id="pasteCode" type="button">I-paste ang code</button>
+      <button class="btn btn-sm" id="copyCode" type="button"></button>
+      <button class="btn btn-sm" id="pasteCode" type="button"></button>
     </div>
   </section>
 
   <footer class="foot">
-    <div>Ang araw, petsa at naka-highlight na gawain ay galing sa oras ng telepono — laging tama.</div>
-    <div>Kailangan ng access sa Google Drive folder para mabuksan ang mga awitin.</div>
+    <div id="foot1">&nbsp;</div>
+    <div id="foot2">&nbsp;</div>
   </footer>
 </div>
 
@@ -290,56 +296,150 @@
     heart:'<path d="M12 20.2S3.6 15.4 3.6 9.6a4.6 4.6 0 0 1 8.4-2.6 4.6 4.6 0 0 1 8.4 2.6c0 5.8-8.4 10.6-8.4 10.6Z"/>'
   };
   var ICON_NAMES = {
-    sun:"Araw · sun", shirt:"Damit · clothes", bowl:"Mangkok · bowl", tooth:"Ngipin · teeth",
-    music:"Musika · music", apple:"Prutas · fruit", pencil:"Lapis · pencil", blocks:"Laruan · toys",
-    plate:"Pagkain · meal", moon:"Tulog · sleep", tree:"Labas · outdoors", book:"Libro · book",
-    bath:"Paliligo · bath", bed:"Higaan · bed", hands:"Kamay · hands", wash:"Tubig · water",
-    heart:"Puso · heart"
+    en:{sun:"Sun",shirt:"Clothes",bowl:"Bowl",tooth:"Teeth",music:"Music",apple:"Fruit",
+        pencil:"Pencil",blocks:"Toys",plate:"Meal",moon:"Sleep",tree:"Outdoors",book:"Book",
+        bath:"Bath",bed:"Bed",hands:"Hands",wash:"Water",heart:"Heart"},
+    fil:{sun:"Araw",shirt:"Damit",bowl:"Mangkok",tooth:"Ngipin",music:"Musika",apple:"Prutas",
+        pencil:"Lapis",blocks:"Laruan",plate:"Pagkain",moon:"Tulog",tree:"Labas",book:"Libro",
+        bath:"Paliligo",bed:"Higaan",hands:"Kamay",wash:"Tubig",heart:"Puso"}
+  };
+
+  /* ---------- interface strings ---------- */
+  var UI = {
+    en:{
+      edit:"Edit routine", editDone:"Done editing", notes:"Grown-up notes",
+      now:"What's now?", clear:"Clear checks", add:"+ Add activity",
+      kidName:"Child's name", reset:"Reset to default",
+      kidLine:function(n){return n+"'s day"}, noName:"Today's routine",
+      doneCount:"done", nowTag:"Now",
+      circleSub:"Songs in order · tap to open in Drive",
+      saveTitle:"Setup Code",
+      saveBody:"This routine is saved on this phone only. If you change phones or clear your browser data, copy the code below and keep it in your Notes.",
+      copy:"Copy", copied:"Copied!", selectCopy:"Select & copy", paste:"Load a code",
+      pastePrompt:"Paste your Setup Code here:",
+      pasteBad:"That code could not be read — make sure the whole thing was copied.",
+      resetAsk:"Reset to the Sama-Aralan default routine? Your changes will be lost.",
+      namePrompt:"Child's name:",
+      noStore:"<strong>This browser can't save.</strong> You can still change the routine, but it will be lost when you refresh. Copy the Setup Code below and keep it in your Notes.",
+      foot1:"The day, date and highlighted activity come from this device's clock — always current, nothing to update by hand.",
+      foot2:"You need access to the Sama-Aralan Google Drive folder to open the songs.",
+      phTitle:"Name in English", phAlt:"Pangalan sa Filipino",
+      phNote:"Note for the grown-up", lblTime:"Time", remove:"Remove",
+      newAct:"New activity", newActAlt:"Bagong gawain"
+    },
+    fil:{
+      edit:"Baguhin ang routine", editDone:"Tapos na", notes:"Paalala sa magulang",
+      now:"Ano ngayon?", clear:"Burahin ang tsek", add:"+ Magdagdag ng gawain",
+      kidName:"Pangalan ng bata", reset:"Ibalik sa default",
+      kidLine:function(n){return "Ang araw ni "+n}, noName:"Routine ngayong araw",
+      doneCount:"tapos", nowTag:"Ngayon",
+      circleSub:"Sunod-sunod na awitin · i-tap para buksan sa Drive",
+      saveTitle:"Setup Code",
+      saveBody:"Nasa telepono mo lang naka-save ang routine na ito. Kung magpapalit ka ng telepono o magbubura ng browser data, kopyahin ang code sa ibaba at i-save sa Notes.",
+      copy:"Kopyahin", copied:"Nakopya!", selectCopy:"Piliin at kopyahin", paste:"I-paste ang code",
+      pastePrompt:"I-paste ang Setup Code dito:",
+      pasteBad:"Hindi tama ang code. Siguraduhing buo ang nakopya.",
+      resetAsk:"Ibabalik ang routine sa default ng Sama-Aralan. Mawawala ang mga binago mo. Tuloy?",
+      namePrompt:"Pangalan ng bata:",
+      noStore:"<strong>Hindi makapag-save ang browser na ito.</strong> Puwede mo pa ring baguhin ang routine, pero mawawala ito kapag nag-refresh. Kopyahin ang Setup Code sa ibaba.",
+      foot1:"Ang araw, petsa at naka-highlight na gawain ay galing sa oras ng telepono — laging tama, walang ie-edit.",
+      foot2:"Kailangan ng access sa Sama-Aralan Google Drive folder para mabuksan ang mga awitin.",
+      phTitle:"Pangalan sa Filipino", phAlt:"Name in English",
+      phNote:"Paalala sa magulang", lblTime:"Oras", remove:"Alisin",
+      newAct:"Bagong gawain", newActAlt:"New activity"
+    }
   };
 
   /* ---------- program default routine ---------- */
   function defaultRoutine(){
     return [
-      {id:"a1", t:"07:00", icon:"sun",    tl:"Paggising at Pag-unat",   en:"Wake up & stretch",   note:"Buksan ang kurtina, tatlong malaking unat, magandang umaga."},
-      {id:"a2", t:"07:15", icon:"shirt",  tl:"Pagbibihis",              en:"Get dressed",         note:"Bigyan ng dalawang pagpipilian para siya ang pumili."},
-      {id:"a3", t:"07:30", icon:"bowl",   tl:"Almusal",                 en:"Breakfast",           note:"Sabihin ang pangalan ng pagkain — pagbilang at kulay."},
-      {id:"a4", t:"08:00", icon:"tooth",  tl:"Pagsipilyo at Paghilamos",en:"Brush teeth & wash",  note:"Dalawang minuto. Tulong ang kanta sa pagbilang."},
-      {id:"a5", t:"08:30", icon:"music",  tl:"Circle Time",             en:"Circle time",         note:"Umupo sa banig. Pareho ang sunod-sunod ng awitin araw-araw."},
-      {id:"a6", t:"09:30", icon:"apple",  tl:"Meryenda",                en:"Morning snack",       note:"May tubig din. Hayaang siya ang magsalin."},
-      {id:"a7", t:"09:45", icon:"pencil", tl:"Gawaing Pampag-aaral",    en:"Learning activity",   note:"Isang gawain lang, 15–20 minuto. Tumigil habang masaya pa."},
-      {id:"a8", t:"10:30", icon:"blocks", tl:"Malayang Paglalaro",      en:"Free play",           note:"Siya ang bahala. Sumali lang kung inimbitahan ka."},
-      {id:"a9", t:"11:30", icon:"plate",  tl:"Tanghalian",              en:"Lunch",               note:"Ligpitin muna ang laruan para malinaw ang paglipat."},
-      {id:"b1", t:"12:15", icon:"moon",   tl:"Oras ng Tulog",           en:"Quiet time / nap",    note:"Padilimin ang kuwarto. Pahinga lang, okay na rin."},
-      {id:"b2", t:"14:00", icon:"tree",   tl:"Paglalaro sa Labas",      en:"Outdoor play",        note:"Sikat ng araw at malayang paggalaw."},
-      {id:"b3", t:"15:00", icon:"apple",  tl:"Meryenda sa Hapon",       en:"Afternoon snack",     note:"Magandang oras para pag-usapan ang umaga."},
-      {id:"b4", t:"15:30", icon:"book",   tl:"Oras ng Kuwento",         en:"Story time",          note:"Hayaang siya ang magbukas ng pahina at manghula."},
-      {id:"b5", t:"17:30", icon:"plate",  tl:"Hapunan",                 en:"Dinner",              note:"Walang screen. Sabay-sabay sa hapag."},
-      {id:"b6", t:"18:30", icon:"bath",   tl:"Paliligo at Pagbibihis",  en:"Bath & pyjamas",      note:"Simula ng pagpapakalma — hinaan na ang ilaw."},
-      {id:"b7", t:"19:15", icon:"bed",    tl:"Kuwento Bago Matulog",    en:"Bedtime story",       note:"Dalawang libro, patay ilaw. Parehong salita gabi-gabi."}
+      {id:"a1",t:"07:00",icon:"sun",   en:"Wake Up & Stretch",     fil:"Paggising at Pag-unat",
+        nEn:"Open the curtains together, three big stretches, say good morning.",
+        nFil:"Buksan ang kurtina, tatlong malaking unat, magandang umaga."},
+      {id:"a2",t:"07:15",icon:"shirt", en:"Get Dressed",           fil:"Pagbibihis",
+        nEn:"Offer two outfit choices so it stays a decision, not a fight.",
+        nFil:"Bigyan ng dalawang pagpipilian para siya ang pumili."},
+      {id:"a3",t:"07:30",icon:"bowl",  en:"Breakfast",             fil:"Almusal",
+        nEn:"Name the foods out loud — colours and counting practice.",
+        nFil:"Sabihin ang pangalan ng pagkain — pagbilang at kulay."},
+      {id:"a4",t:"08:00",icon:"tooth", en:"Brush Teeth & Wash",    fil:"Pagsipilyo at Paghilamos",
+        nEn:"Two minutes. A song makes the timing obvious.",
+        nFil:"Dalawang minuto. Tulong ang kanta sa pagbilang."},
+      {id:"a5",t:"08:30",icon:"music", en:"Circle Time",           fil:"Circle Time",
+        nEn:"Sit on the mat. The same song order every day builds the habit.",
+        nFil:"Umupo sa banig. Pareho ang sunod-sunod ng awitin araw-araw."},
+      {id:"a6",t:"09:30",icon:"apple", en:"Morning Snack",         fil:"Meryenda",
+        nEn:"Water too. Let them pour it themselves.",
+        nFil:"May tubig din. Hayaang siya ang magsalin."},
+      {id:"a7",t:"09:45",icon:"pencil",en:"Learning Activity",     fil:"Gawaing Pampag-aaral",
+        nEn:"One focused task, 15–20 minutes. Stop while it's still fun.",
+        nFil:"Isang gawain lang, 15–20 minuto. Tumigil habang masaya pa."},
+      {id:"a8",t:"10:30",icon:"blocks",en:"Free Play",             fil:"Malayang Paglalaro",
+        nEn:"Child-led. Join in only if invited.",
+        nFil:"Siya ang bahala. Sumali lang kung inimbitahan ka."},
+      {id:"a9",t:"11:30",icon:"plate", en:"Lunch",                 fil:"Tanghalian",
+        nEn:"Tidy the toys first so the transition is clear.",
+        nFil:"Ligpitin muna ang laruan para malinaw ang paglipat."},
+      {id:"b1",t:"12:15",icon:"moon",  en:"Quiet Time / Nap",      fil:"Oras ng Tulog",
+        nEn:"Dim the room. Rest counts even without sleep.",
+        nFil:"Padilimin ang kuwarto. Pahinga lang, okay na rin."},
+      {id:"b2",t:"14:00",icon:"tree",  en:"Outdoor Play",          fil:"Paglalaro sa Labas",
+        nEn:"Sunshine and big movement — the afternoon reset.",
+        nFil:"Sikat ng araw at malayang paggalaw."},
+      {id:"b3",t:"15:00",icon:"apple", en:"Afternoon Snack",       fil:"Meryenda sa Hapon",
+        nEn:"A good moment to talk through what happened this morning.",
+        nFil:"Magandang oras para pag-usapan ang umaga."},
+      {id:"b4",t:"15:30",icon:"book",  en:"Story Time",            fil:"Oras ng Kuwento",
+        nEn:"Let them turn the pages and guess what happens next.",
+        nFil:"Hayaang siya ang magbukas ng pahina at manghula."},
+      {id:"b5",t:"17:30",icon:"plate", en:"Dinner",                fil:"Hapunan",
+        nEn:"Screens away. Everyone at the table.",
+        nFil:"Walang screen. Sabay-sabay sa hapag."},
+      {id:"b6",t:"18:30",icon:"bath",  en:"Bath & Pyjamas",        fil:"Paliligo at Pagbibihis",
+        nEn:"The wind-down starts here — lights lower from now on.",
+        nFil:"Simula ng pagpapakalma — hinaan na ang ilaw."},
+      {id:"b7",t:"19:15",icon:"bed",   en:"Bedtime Story",         fil:"Kuwento Bago Matulog",
+        nEn:"Two books, then lights out. The same words every night.",
+        nFil:"Dalawang libro, patay ilaw. Parehong salita gabi-gabi."}
     ];
   }
 
   /* ---------- Circle Time songs (Sama-Aralan Drive folder) ---------- */
   var D = "https://drive.google.com/file/d/";
   var VIDEOS = [
-    {name:"Hello Hello",        lang:"EN", tl:"pagbati sa umaga",        id:"19PmaCQicZ9bRXJsAMERNAiYoBCILBHzK"},
-    {name:"Lupang Hinirang",    lang:"",   tl:"pambansang awit",         id:"1S9u-4X7Igx9D5XZCIytjMYcgDB4Tkc9L"},
-    {name:"Days of the Week",   lang:"EN", tl:"anong araw ngayon",       id:"1gxqfAFeyOXqa_S2PKxxCTaEkdeIBk8Xa"},
-    {name:"Araw sa Isang Linggo",lang:"TL",tl:"mga araw sa isang linggo",id:"1AJb5sFkR_9jjmyGgXcOJFusVe44V3N_3"},
-    {name:"Months of the Year", lang:"EN", tl:"mga buwan sa isang taon",  id:"1rP0QUXY60vFk9nIRmoo8BqB6eM58mP81"},
-    {name:"Lubi-lubi",          lang:"TL", tl:"mga buwan · awiting bayan",id:"1Q55c8qjb-g31EnHBbvH01xQ5DzKhlbXe"},
-    {name:"The Weather Song",   lang:"EN", tl:"tingnan ang panahon",     id:"1ajZqds1P53Y7bsCgdEgEFtG_smRwWWTW"},
-    {name:"Clean Up Song",      lang:"EN", tl:"ligpitin ang laruan",     id:"1PHS9BvqG5-wrIG9vg0DUDO3MqxdDuJJg"},
-    {name:"Goodbye To You",     lang:"EN", tl:"pangwakas na awit",       id:"1gCe9yxm3pmaB6cEo1CbNAIf9TGFiigYi"}
+    {name:"Hello Hello",         lang:"EN", id:"19PmaCQicZ9bRXJsAMERNAiYoBCILBHzK",
+      dEn:"morning greeting",        dFil:"pagbati sa umaga"},
+    {name:"Lupang Hinirang",     lang:"",   id:"1S9u-4X7Igx9D5XZCIytjMYcgDB4Tkc9L",
+      dEn:"national anthem",         dFil:"pambansang awit"},
+    {name:"Days of the Week",    lang:"EN", id:"1gxqfAFeyOXqa_S2PKxxCTaEkdeIBk8Xa",
+      dEn:"what day is it today",    dFil:"anong araw ngayon"},
+    {name:"Araw sa Isang Linggo",lang:"TL", id:"1AJb5sFkR_9jjmyGgXcOJFusVe44V3N_3",
+      dEn:"days of the week",        dFil:"mga araw sa isang linggo"},
+    {name:"Months of the Year",  lang:"EN", id:"1rP0QUXY60vFk9nIRmoo8BqB6eM58mP81",
+      dEn:"months of the year",      dFil:"mga buwan sa isang taon"},
+    {name:"Lubi-lubi",           lang:"TL", id:"1Q55c8qjb-g31EnHBbvH01xQ5DzKhlbXe",
+      dEn:"months · folk song",      dFil:"mga buwan · awiting bayan"},
+    {name:"The Weather Song",    lang:"EN", id:"1ajZqds1P53Y7bsCgdEgEFtG_smRwWWTW",
+      dEn:"look outside first",      dFil:"tingnan muna ang panahon"},
+    {name:"Clean Up Song",       lang:"EN", id:"1PHS9BvqG5-wrIG9vg0DUDO3MqxdDuJJg",
+      dEn:"pack the toys away",      dFil:"ligpitin ang laruan"},
+    {name:"Goodbye To You",      lang:"EN", id:"1gCe9yxm3pmaB6cEo1CbNAIf9TGFiigYi",
+      dEn:"closing song",            dFil:"pangwakas na awit"}
   ];
   /* ------------------------------------------------------------------ */
 
-  var DAYS_TL = ["Linggo","Lunes","Martes","Miyerkules","Huwebes","Biyernes","Sabado"];
-  var DAYS_EN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-  var SHORT   = ["Li","Lu","Ma","Mi","Hu","Bi","Sa"];
-  var MON_TL  = ["Enero","Pebrero","Marso","Abril","Mayo","Hunyo","Hulyo",
-                 "Agosto","Setyembre","Oktubre","Nobyembre","Disyembre"];
-  var STORE = "samaAralanRoutine.v2";
+  var DAYS = {
+    en:["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    fil:["Linggo","Lunes","Martes","Miyerkules","Huwebes","Biyernes","Sabado"]
+  };
+  var SHORT = { en:["Su","Mo","Tu","We","Th","Fr","Sa"], fil:["Li","Lu","Ma","Mi","Hu","Bi","Sa"] };
+  var MONTHS = {
+    en:["January","February","March","April","May","June","July",
+        "August","September","October","November","December"],
+    fil:["Enero","Pebrero","Marso","Abril","Mayo","Hunyo","Hulyo",
+         "Agosto","Setyembre","Oktubre","Nobyembre","Disyembre"]
+  };
+  var STORE = "samaAralanRoutine.v3";
 
   function mins(hhmm){var p=String(hhmm).split(":");return (parseInt(p[0],10)||0)*60+(parseInt(p[1],10)||0)}
   function pretty(hhmm){
@@ -352,7 +452,25 @@
 
   /* ---------- state ---------- */
   var storeOK = true;
-  var state = {child:"", routine:defaultRoutine(), day:"", done:[]};
+  var state = {lang:"en", child:"", routine:defaultRoutine(), day:"", done:[]};
+
+  function L(){ return UI[state.lang] || UI.en; }
+  /* primary / secondary text for one step, per chosen language */
+  function pri(s){ return state.lang==="en" ? (s.en||s.fil||"") : (s.fil||s.en||"") }
+  function sec(s){ return state.lang==="en" ? (s.fil||"")       : (s.en||"") }
+  function noteOf(s){ return state.lang==="en" ? (s.nEn||s.nFil||"") : (s.nFil||s.nEn||"") }
+
+  /* accept routines saved by older versions (tl / note) */
+  function normalise(list){
+    for(var i=0;i<list.length;i++){
+      var s = list[i];
+      if(s.fil === undefined && s.tl !== undefined) s.fil = s.tl;
+      if(s.nFil === undefined && s.note !== undefined) s.nFil = s.note;
+      if(s.en  === undefined) s.en = "";
+      if(s.fil === undefined) s.fil = "";
+    }
+    return list;
+  }
 
   function load(){
     try{
@@ -364,17 +482,17 @@
         if(raw){
           var p = JSON.parse(raw);
           if(p && Object.prototype.toString.call(p.routine)==="[object Array]" && p.routine.length){
-            state.routine = p.routine;
+            state.routine = normalise(p.routine);
             state.child   = typeof p.child==="string" ? p.child : "";
             state.day     = typeof p.day==="string" ? p.day : "";
             state.done    = Object.prototype.toString.call(p.done)==="[object Array]" ? p.done : [];
           }
+          if(p && (p.lang==="en"||p.lang==="fil")) state.lang = p.lang;
         }
       }catch(e){}
     }
     var today = stamp(new Date());
     if(state.day !== today){ state.day = today; state.done = []; }
-    if(!storeOK) document.getElementById("noStore").hidden = false;
   }
   function save(){
     try{ window.localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
@@ -386,7 +504,7 @@
   var codeBox = document.getElementById("codeBox");
   function refreshCode(){
     try{
-      var payload = JSON.stringify({child:state.child, routine:state.routine});
+      var payload = JSON.stringify({lang:state.lang, child:state.child, routine:state.routine});
       codeBox.value = window.btoa(unescape(encodeURIComponent(payload)));
     }catch(e){ codeBox.value = "—"; }
   }
@@ -396,22 +514,21 @@
     var ok = false;
     try{ ok = document.execCommand("copy"); }catch(e){}
     if(!ok && navigator.clipboard){ navigator.clipboard.writeText(codeBox.value); ok = true; }
-    b.textContent = ok ? "Nakopya!" : "Piliin at kopyahin";
-    setTimeout(function(){ b.textContent = "Kopyahin"; }, 2200);
+    b.textContent = ok ? L().copied : L().selectCopy;
+    setTimeout(function(){ b.textContent = L().copy; }, 2200);
   });
   document.getElementById("pasteCode").addEventListener("click", function(){
-    var raw = window.prompt("I-paste ang Setup Code dito · Paste your Setup Code:");
+    var raw = window.prompt(L().pastePrompt);
     if(!raw) return;
     try{
       var p = JSON.parse(decodeURIComponent(escape(window.atob(raw.replace(/\s+/g,"")))));
       if(!p || Object.prototype.toString.call(p.routine)!=="[object Array]" || !p.routine.length) throw 0;
-      state.routine = p.routine;
+      state.routine = normalise(p.routine);
       state.child   = typeof p.child==="string" ? p.child : "";
+      if(p.lang==="en"||p.lang==="fil") state.lang = p.lang;
       state.done    = [];
-      sortRoutine(); save(); render(); tick(true);
-    }catch(e){
-      window.alert("Hindi tama ang code. Siguraduhing buo ang nakopya.\n\nThat code could not be read.");
-    }
+      sortRoutine(); save(); applyLang();
+    }catch(e){ window.alert(L().pasteBad); }
   });
 
   /* ---------- render ---------- */
@@ -419,43 +536,49 @@
   var editing = false, showNotes = false;
 
   function iconSelect(cur){
+    var names = ICON_NAMES[state.lang] || ICON_NAMES.en;
     var out = '<select class="f-icon" aria-label="Icon">';
     for(var k in ICONS){ if(Object.prototype.hasOwnProperty.call(ICONS,k)){
-      out += '<option value="'+k+'"'+(k===cur?' selected':'')+'>'+esc(ICON_NAMES[k]||k)+'</option>';
+      out += '<option value="'+k+'"'+(k===cur?' selected':'')+'>'+esc(names[k]||k)+'</option>';
     }}
     return out+'</select>';
   }
 
   function render(){
+    var t = L();
     stepsEl.innerHTML = "";
     for(var i=0;i<state.routine.length;i++){
       var s = state.routine[i];
       var li = document.createElement("li");
       li.setAttribute("data-id", s.id);
       if(editing){
+        var priV = state.lang==="en" ? (s.en||"") : (s.fil||"");
+        var secV = state.lang==="en" ? (s.fil||"") : (s.en||"");
+        var nPri = state.lang==="en" ? (s.nEn||"") : (s.nFil||"");
         li.className = "step editing";
         li.innerHTML =
           '<div class="erow">'+
-            '<label>Oras</label><input type="time" class="f-time" value="'+esc(s.t)+'">'+
+            '<label>'+esc(t.lblTime)+'</label><input type="time" class="f-time" value="'+esc(s.t)+'">'+
             iconSelect(s.icon)+
-            '<button class="btn btn-sm del f-del" type="button">Alisin</button>'+
+            '<button class="btn btn-sm del f-del" type="button">'+esc(t.remove)+'</button>'+
           '</div>'+
           '<div class="erow">'+
-            '<input type="text" class="f-tl f-text" value="'+esc(s.tl)+'" placeholder="Pangalan sa Filipino">'+
-            '<input type="text" class="f-en f-text" value="'+esc(s.en)+'" placeholder="Name in English">'+
+            '<input type="text" class="f-pri f-text" value="'+esc(priV)+'" placeholder="'+esc(t.phTitle)+'">'+
+            '<input type="text" class="f-sec f-text" value="'+esc(secV)+'" placeholder="'+esc(t.phAlt)+'">'+
           '</div>'+
-          '<textarea class="f-note" placeholder="Paalala sa magulang · note for the grown-up">'+esc(s.note||"")+'</textarea>';
+          '<textarea class="f-note" placeholder="'+esc(t.phNote)+'">'+esc(nPri)+'</textarea>';
       }else{
+        var second = sec(s), n = noteOf(s);
         li.className = "step tint"+((i%5)+1) + (state.done.indexOf(s.id)!==-1 ? " is-done" : "");
         li.innerHTML =
           '<span class="time">'+pretty(s.t)+'</span>'+
           '<span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[s.icon]||ICONS.sun)+'</svg></span>'+
-          '<h2 class="title">'+esc(s.tl)+(s.en?'<span class="sub">'+esc(s.en)+'</span>':'')+'</h2>'+
-          '<button class="check" type="button" aria-label="Tapos na" aria-pressed="'+
+          '<h2 class="title">'+esc(pri(s))+(second?'<span class="sub">'+esc(second)+'</span>':'')+'</h2>'+
+          '<button class="check" type="button" aria-label="'+esc(t.doneCount)+'" aria-pressed="'+
             (state.done.indexOf(s.id)!==-1?"true":"false")+'">'+
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.8 9.6 17.4 19 7"/></svg>'+
           '</button>'+
-          (s.note ? '<p class="note"'+(showNotes?"":" hidden")+'>'+esc(s.note)+'</p>' : '');
+          (n ? '<p class="note"'+(showNotes?"":" hidden")+'>'+esc(n)+'</p>' : '');
       }
       stepsEl.appendChild(li);
     }
@@ -466,13 +589,11 @@
     var out = "";
     for(var i=0;i<VIDEOS.length;i++){
       var v = VIDEOS[i];
+      var desc = state.lang==="en" ? v.dEn : v.dFil;
       var play = '<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5Z"/></svg></span>';
       var chip = v.lang ? '<span class="lang '+(v.lang==="EN"?"en":"tl")+'">'+v.lang+'</span>' : '';
-      var label = '<span class="vname">'+esc(v.name)+chip+
-                  '<span class="vlen">'+esc(v.tl)+'</span></span>';
-      out += v.id
-        ? '<li><a class="vid" href="'+D+esc(v.id)+'/view" target="_blank" rel="noopener">'+play+label+'</a></li>'
-        : '<li><span class="vid is-empty">'+play+label+'</span></li>';
+      var label = '<span class="vname">'+esc(v.name)+chip+'<span class="vlen">'+esc(desc)+'</span></span>';
+      out += '<li><a class="vid" href="'+D+esc(v.id)+'/view" target="_blank" rel="noopener">'+play+label+'</a></li>';
     }
     document.getElementById("vids").innerHTML = out;
   }
@@ -484,26 +605,28 @@
     var n = 0;
     for(var i=0;i<state.routine.length;i++){ if(state.done.indexOf(state.routine[i].id)!==-1) n++; }
     barEl.style.width = (state.routine.length ? n/state.routine.length*100 : 0) + "%";
-    txtEl.textContent = n + " / " + state.routine.length + " tapos";
+    txtEl.textContent = n + " / " + state.routine.length + " " + L().doneCount;
   }
 
   /* ---------- date + now ---------- */
-  var dayNameEl=document.getElementById("dayName"), dayEnEl=document.getElementById("dayEn"),
+  var dayNameEl=document.getElementById("dayName"), dayAltEl=document.getElementById("dayAlt"),
       fullDateEl=document.getElementById("fullDate"), clockEl=document.getElementById("clock"),
-      stripEl=document.getElementById("daystrip"), kidEl=document.getElementById("kidName");
-  var lastDay = "";
+      stripEl=document.getElementById("daystrip"), kidEl=document.getElementById("kidLine");
+  var lastKey = "";
 
   function tick(force){
-    var now = new Date(), today = stamp(now);
-    if(force || today !== lastDay){
-      lastDay = today;
-      dayNameEl.textContent  = DAYS_TL[now.getDay()];
-      dayEnEl.textContent    = DAYS_EN[now.getDay()];
-      fullDateEl.textContent = MON_TL[now.getMonth()]+" "+now.getDate()+", "+now.getFullYear();
-      kidEl.textContent      = state.child || "bunso";
+    var now = new Date(), key = stamp(now)+"|"+state.lang;
+    if(force || key !== lastKey){
+      lastKey = key;
+      var other = state.lang==="en" ? "fil" : "en";
+      dayNameEl.textContent  = DAYS[state.lang][now.getDay()];
+      dayAltEl.textContent   = DAYS[other][now.getDay()];
+      fullDateEl.textContent = MONTHS[state.lang][now.getMonth()]+" "+now.getDate()+", "+now.getFullYear();
+      kidEl.textContent      = state.child ? L().kidLine(state.child) : L().noName;
       var html = "";
-      for(var d=0;d<7;d++){ html += '<li class="'+(d===now.getDay()?"is-today":"")+'">'+SHORT[d]+'</li>'; }
+      for(var d=0;d<7;d++){ html += '<li class="'+(d===now.getDay()?"is-today":"")+'">'+SHORT[state.lang][d]+'</li>'; }
       stripEl.innerHTML = html;
+      var today = stamp(now);
       if(state.day !== today){ state.day = today; state.done = []; save(); render(); }
     }
 
@@ -518,12 +641,54 @@
       var on = (j === cur);
       if(rows[j].classList.contains("is-now") !== on){
         rows[j].classList.toggle("is-now", on);
-        var t = rows[j].querySelector(".title"), tag = t ? t.querySelector(".now-tag") : null;
-        if(on && t && !tag) t.insertAdjacentHTML("afterbegin", '<span class="now-tag">Ngayon</span>');
+        var ti = rows[j].querySelector(".title"), tag = ti ? ti.querySelector(".now-tag") : null;
+        if(on && ti && !tag) ti.insertAdjacentHTML("afterbegin", '<span class="now-tag">'+esc(L().nowTag)+'</span>');
         else if(!on && tag) tag.remove();
       }
     }
   }
+
+  /* ---------- language ---------- */
+  function applyLang(){
+    var t = L();
+    document.documentElement.lang = state.lang === "en" ? "en" : "fil";
+
+    var sw = document.getElementById("langsw").children;
+    for(var i=0;i<sw.length;i++){
+      sw[i].setAttribute("aria-pressed", sw[i].getAttribute("data-lang")===state.lang ? "true":"false");
+    }
+    document.getElementById("editToggle").textContent  = editing ? t.editDone : t.edit;
+    document.getElementById("notesToggle").textContent = t.notes;
+    document.getElementById("jumpNow").textContent     = t.now;
+    document.getElementById("resetChecks").textContent = t.clear;
+    document.getElementById("addStep").textContent     = t.add;
+    document.getElementById("editName").textContent    = t.kidName;
+    document.getElementById("resetAll").textContent    = t.reset;
+    document.getElementById("circleSub").textContent   = t.circleSub;
+    document.getElementById("saveTitle").textContent   = t.saveTitle;
+    document.getElementById("saveBody").textContent    = t.saveBody;
+    document.getElementById("copyCode").textContent    = t.copy;
+    document.getElementById("pasteCode").textContent   = t.paste;
+    document.getElementById("foot1").textContent       = t.foot1;
+    document.getElementById("foot2").textContent       = t.foot2;
+    var ns = document.getElementById("noStore");
+    ns.innerHTML = t.noStore;
+    ns.hidden = storeOK;
+
+    renderVideos();
+    render();
+    tick(true);
+  }
+
+  document.getElementById("langsw").addEventListener("click", function(ev){
+    var b = ev.target.closest ? ev.target.closest("button[data-lang]") : null;
+    if(!b) return;
+    var next = b.getAttribute("data-lang");
+    if(next === state.lang) return;
+    if(editing) harvest();          /* keep in-progress edits before swapping */
+    state.lang = next;
+    save(); applyLang();
+  });
 
   /* ---------- interactions ---------- */
   stepsEl.addEventListener("click", function(ev){
@@ -540,13 +705,15 @@
     var del = t.closest ? t.closest(".f-del") : null;
     if(del){
       var row = del.closest("li"), rid = row.getAttribute("data-id");
+      harvest();
       for(var i=0;i<state.routine.length;i++){
         if(state.routine[i].id === rid){ state.routine.splice(i,1); break; }
       }
-      harvest(); save(); render();
+      save(); render();
     }
   });
 
+  /* pull edit fields back into state, respecting which language is primary */
   function harvest(){
     var rows = stepsEl.children;
     for(var i=0;i<rows.length;i++){
@@ -554,11 +721,14 @@
       var tI = rows[i].querySelector(".f-time"); if(!tI) continue;
       for(var j=0;j<state.routine.length;j++){
         if(state.routine[j].id !== id) continue;
-        state.routine[j].t    = tI.value || state.routine[j].t;
-        state.routine[j].icon = rows[i].querySelector(".f-icon").value;
-        state.routine[j].tl   = rows[i].querySelector(".f-tl").value || "Gawain";
-        state.routine[j].en   = rows[i].querySelector(".f-en").value;
-        state.routine[j].note = rows[i].querySelector(".f-note").value;
+        var s = state.routine[j];
+        s.t    = tI.value || s.t;
+        s.icon = rows[i].querySelector(".f-icon").value;
+        var priV = rows[i].querySelector(".f-pri").value;
+        var secV = rows[i].querySelector(".f-sec").value;
+        var nV   = rows[i].querySelector(".f-note").value;
+        if(state.lang === "en"){ s.en = priV || L().newAct; s.fil = secV; s.nEn = nV; }
+        else                   { s.fil = priV || L().newAct; s.en  = secV; s.nFil = nV; }
         break;
       }
     }
@@ -570,7 +740,7 @@
     if(editing){ harvest(); save(); }
     editing = !editing;
     editBtn.setAttribute("aria-pressed", editing ? "true" : "false");
-    editBtn.textContent = editing ? "Tapos na" : "Baguhin ang routine";
+    editBtn.textContent = editing ? L().editDone : L().edit;
     document.getElementById("addbar").hidden = !editing;
     render(); tick(true);
   });
@@ -594,28 +764,28 @@
 
   document.getElementById("addStep").addEventListener("click", function(){
     harvest();
-    state.routine.push({id:uid(), t:"12:00", icon:"heart", tl:"Bagong gawain", en:"New activity", note:""});
+    state.routine.push({id:uid(), t:"12:00", icon:"heart",
+      en:L().newAct, fil:UI.fil.newAct, nEn:"", nFil:""});
+    if(state.lang==="fil"){ var last=state.routine[state.routine.length-1]; last.fil=UI.fil.newAct; last.en=UI.en.newAct; }
     sortRoutine(); save(); render();
   });
 
   document.getElementById("editName").addEventListener("click", function(){
-    var n = window.prompt("Pangalan ng bata · Child's name:", state.child || "");
+    var n = window.prompt(L().namePrompt, state.child || "");
     if(n === null) return;
     state.child = n.trim().slice(0,28); save(); tick(true);
   });
 
   document.getElementById("resetAll").addEventListener("click", function(){
-    if(!window.confirm("Ibabalik ang routine sa default ng Sama-Aralan. Mawawala ang mga binago mo.\n\nReset to the Sama-Aralan default?")) return;
+    if(!window.confirm(L().resetAsk)) return;
     state.routine = defaultRoutine(); state.done = []; save(); render(); tick(true);
   });
 
   /* ---------- go ---------- */
   load();
   sortRoutine();
-  renderVideos();
-  render();
+  applyLang();
   refreshCode();
-  tick(true);
   setInterval(tick, 20000);
 })();
 </script>
