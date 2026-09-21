@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Sama-Aralan daily routine board — bilingual, personalised by each family.">
+<meta name="theme-color" content="#1F6F5C">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Routine">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<title>Sama-Aralan Routine Board</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<style>
+  html,body{background:#F5F8F2}
+  @media (prefers-color-scheme:dark){html,body{background:#111814}}
+  :root{
+    --ground:#F5F8F2; --surface:#FFFFFF; --surface-2:#EDF2E9;
+    --ink:#1E2A24; --ink-soft:#586A60; --ink-faint:#8B9A91; --line:#D9E2D5;
+    --pine:#1F6F5C; --pine-soft:#DDEDE6;
+    --sun:#E9A419; --sun-soft:#FBEDD0; --on-sun:#20180A;
+    --coral:#DC5A43; --sky:#4E85C0; --sky-soft:#DEE9F6;
+    --shadow:0 1px 2px rgba(30,42,36,.06), 0 6px 18px rgba(30,42,36,.05);
+    --r-lg:20px; --r-md:14px; --r-sm:9px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#111814; --surface:#19221D; --surface-2:#212C26;
+      --ink:#E9F0EA; --ink-soft:#A6B5AC; --ink-faint:#74857B; --line:#2C3A32;
+      --pine:#5CBFA3; --pine-soft:#1C332C;
+      --sun:#F0B845; --sun-soft:#2A2314; --on-sun:#20180A;
+      --coral:#F0765D; --sky:#7FADDC; --sky-soft:#1B2734;
+      --shadow:0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.28);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#111814; --surface:#19221D; --surface-2:#212C26;
+    --ink:#E9F0EA; --ink-soft:#A6B5AC; --ink-faint:#74857B; --line:#2C3A32;
+    --pine:#5CBFA3; --pine-soft:#1C332C;
+    --sun:#F0B845; --sun-soft:#2A2314; --on-sun:#20180A;
+    --coral:#F0765D; --sky:#7FADDC; --sky-soft:#1B2734;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.28);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:"Karla","Segoe UI",system-ui,sans-serif;
+    font-size:16px; line-height:1.5; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:780px; margin:0 auto; padding-inline:16px; padding-block:20px 56px}
+  h1,h2,h3{font-family:"Baloo 2","Trebuchet MS",system-ui,sans-serif;font-weight:700;margin:0;line-height:1.15}
+  .eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);font-weight:700;margin:0}
+  .en{color:var(--ink-faint);font-weight:400;font-style:italic}
+
+  .banner{
+    background:var(--sun-soft); border:1px solid var(--sun); border-radius:var(--r-md);
+    padding:11px 14px; font-size:13.5px; margin-bottom:14px; color:var(--ink);
+  }
+
+  /* ---- today ---- */
+  .today{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
+    padding:18px 20px 16px;display:flex;flex-direction:column;gap:13px}
+  .today-top{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+  .today-text{flex:1 1 210px;min-width:0}
+  #kidLine{font-size:12.5px;color:var(--ink-soft);font-weight:700;letter-spacing:.02em}
+  #dayName{font-size:clamp(32px,9.5vw,50px);color:var(--pine);letter-spacing:-.01em}
+  #dayEn{font-size:14px;margin:1px 0 0}
+  #fullDate{font-size:16.5px;color:var(--ink-soft);font-weight:500;margin:4px 0 0}
+  #clock{font-variant-numeric:tabular-nums;font-family:"Baloo 2",sans-serif;font-size:21px;
+    font-weight:600;background:var(--surface-2);border-radius:var(--r-sm);padding:6px 12px;white-space:nowrap}
+  .daystrip{display:flex;gap:5px;margin:0;padding:0}
+  .daystrip li{flex:1;list-style:none;text-align:center;padding:6px 0 7px;border-radius:var(--r-sm);
+    background:var(--surface-2);color:var(--ink-faint);font-weight:700;font-size:12px;letter-spacing:.04em}
+  .daystrip li.is-today{background:var(--sun);color:var(--on-sun)}
+  .progress-row{display:flex;align-items:center;gap:12px}
+  .bar{flex:1;height:10px;border-radius:99px;background:var(--surface-2);overflow:hidden}
+  .bar span{display:block;height:100%;width:0;background:var(--pine);border-radius:99px;transition:width .35s ease}
+  #progressText{font-size:13px;color:var(--ink-soft);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+  /* ---- buttons ---- */
+  .controls{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0 12px}
+  .btn{font-family:"Karla",sans-serif;font-size:13px;font-weight:700;color:var(--ink-soft);
+    background:var(--surface);border:1px solid var(--line);border-radius:99px;padding:8px 14px;cursor:pointer}
+  .btn:hover{color:var(--ink);border-color:var(--ink-faint)}
+  .btn[aria-pressed="true"]{background:var(--pine);border-color:var(--pine);color:#fff}
+  .btn-sm{font-size:12px;padding:6px 11px}
+  .btn:focus-visible,.check:focus-visible,.vid:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+  /* ---- steps ---- */
+  .steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .step{background:var(--surface);border-radius:var(--r-md);box-shadow:var(--shadow);
+    display:grid;grid-template-columns:58px 38px 1fr auto;align-items:center;gap:11px;
+    padding:11px 13px;border-left:5px solid transparent}
+  .step.is-now{border-left-color:var(--sun);background:var(--sun-soft)}
+  .step.is-done .title{text-decoration:line-through;color:var(--ink-faint)}
+  .step.is-done .icon{opacity:.45}
+  .time{font-variant-numeric:tabular-nums;font-size:13px;font-weight:700;color:var(--ink-soft)}
+  .step.is-now .time{color:var(--coral)}
+  .icon{width:34px;height:34px;border-radius:10px;background:var(--pine-soft);display:grid;place-items:center}
+  .icon svg{width:20px;height:20px;stroke:var(--pine);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .title{font-family:"Baloo 2",sans-serif;font-weight:600;font-size:17.5px;line-height:1.2}
+  .title .sub{display:block;font-family:"Karla",sans-serif;font-size:12.5px;font-weight:400;
+    font-style:italic;color:var(--ink-faint);line-height:1.3;margin-top:1px}
+  .now-tag{display:inline-block;margin-right:7px;font-family:"Karla",sans-serif;font-size:10px;
+    font-weight:700;letter-spacing:.09em;text-transform:uppercase;background:var(--coral);
+    color:#fff;border-radius:99px;padding:2px 7px;vertical-align:2px}
+  .note{grid-column:3/-1;font-size:13px;color:var(--ink-soft);font-style:italic;margin:-3px 0 0}
+  .check{width:36px;height:36px;border-radius:50%;border:2px solid var(--line);background:transparent;
+    cursor:pointer;display:grid;place-items:center;padding:0}
+  .check svg{width:19px;height:19px;stroke:var(--ink-faint);fill:none;stroke-width:2.6;
+    stroke-linecap:round;stroke-linejoin:round;opacity:0}
+  .step.is-done .check{background:var(--pine);border-color:var(--pine)}
+  .step.is-done .check svg{stroke:#fff;opacity:1}
+
+  /* ---- edit mode ---- */
+  .step.editing{grid-template-columns:1fr;gap:8px;background:var(--surface)}
+  .erow{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+  .erow label{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-faint)}
+  input[type="time"],input[type="text"],select,textarea{
+    font-family:"Karla",sans-serif;font-size:14.5px;color:var(--ink);background:var(--ground);
+    border:1px solid var(--line);border-radius:var(--r-sm);padding:8px 10px}
+  .f-text{flex:1 1 180px;min-width:0}
+  textarea{width:100%;resize:vertical;min-height:52px;font-size:13.5px}
+  .del{color:var(--coral);border-color:var(--coral)}
+  .addbar{margin-top:9px;display:flex;gap:7px;flex-wrap:wrap}
+
+  /* ---- circle time ---- */
+  .circle{background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);
+    padding:17px 18px;margin-top:22px}
+  .circle h2{font-size:21px;color:var(--pine)}
+  .circle-head{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .vids{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:8px}
+  .vid{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--sky-soft);
+    border:1px solid transparent;border-radius:var(--r-sm);padding:10px 11px;color:inherit;
+    font-family:"Karla",sans-serif;font-size:14px;font-weight:700;text-decoration:none}
+  .vid:hover{border-color:var(--sky)}
+  .vid .play{width:27px;height:27px;flex:none;border-radius:50%;background:var(--sky);display:grid;place-items:center}
+  .vid .play svg{width:12px;height:12px;fill:#fff;stroke:none}
+  .vid .vname{min-width:0;line-height:1.2}
+  .vid .vlen{display:block;font-weight:400;font-size:11px;color:var(--ink-soft);font-style:italic}
+  .vid.is-empty{background:var(--surface-2);border-style:dashed;border-color:var(--line)}
+  .vid.is-empty .play{background:var(--ink-faint)}
+
+  /* ---- setup code ---- */
+  .save{margin-top:22px;background:var(--surface);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:17px 18px}
+  .save h2{font-size:19px}
+  .save p{font-size:13.5px;color:var(--ink-soft);margin:6px 0 11px}
+  .foot{margin-top:24px;padding-top:15px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--ink-faint);display:flex;flex-direction:column;gap:5px}
+
+  @media (max-width:520px){
+    .step{grid-template-columns:50px 32px 1fr auto;gap:9px;padding:10px 11px}
+    .icon{width:31px;height:31px}.icon svg{width:18px;height:18px}
+    .title{font-size:16px}.time{font-size:12px}.check{width:33px;height:33px}
+    .note{grid-column:1/-1}.vids{grid-template-columns:1fr 1fr}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <div class="banner" id="noStore" hidden>
+    <strong>Hindi makapag-save ang browser na ito.</strong> Maaari mo pa ring baguhin ang routine ngayon,
+    pero mawawala ito kapag nag-refresh ka. Kopyahin ang <em>Setup Code</em> sa ibaba at i-save sa Notes.
+    <span class="en">— This browser can't save. Copy your Setup Code below to keep your routine.</span>
+  </div>
+
+  <header class="today">
+    <div class="today-top">
+      <div class="today-text">
+        <p class="eyebrow" id="kidLine">Ang araw ni <span id="kidName">bunso</span></p>
+        <h1 id="dayName">&nbsp;</h1>
+        <p class="en" id="dayEn">&nbsp;</p>
+        <p id="fullDate">&nbsp;</p>
+      </div>
+      <div id="clock">&nbsp;</div>
+    </div>
+    <ul class="daystrip" id="daystrip"></ul>
+    <div class="progress-row">
+      <div class="bar"><span id="progressBar"></span></div>
+      <div id="progressText">0 / 0</div>
+    </div>
+  </header>
+
+  <div class="controls">
+    <button class="btn" id="editToggle" type="button" aria-pressed="false">Baguhin ang routine · Edit</button>
+    <button class="btn" id="notesToggle" type="button" aria-pressed="false">Paalala sa magulang · Notes</button>
+    <button class="btn" id="jumpNow" type="button">Ano ngayon? · Now</button>
+    <button class="btn" id="resetChecks" type="button">Burahin ang tsek · Clear</button>
+  </div>
+
+  <ul class="steps" id="steps"></ul>
+  <div class="addbar" id="addbar" hidden>
+    <button class="btn btn-sm" id="addStep" type="button">+ Magdagdag ng gawain · Add activity</button>
+    <button class="btn btn-sm" id="editName" type="button">Pangalan ng bata · Child's name</button>
+    <button class="btn btn-sm del" id="resetAll" type="button">Ibalik sa default · Reset</button>
+  </div>
+
+  <section class="circle">
+    <div class="circle-head">
+      <div>
+        <h2>Circle Time</h2>
+        <p class="eyebrow">Pareho ang sunod-sunod araw-araw · same order daily</p>
+      </div>
+    </div>
+    <ul class="vids" id="vids"></ul>
+  </section>
+
+  <section class="save">
+    <h2>Setup Code</h2>
+    <p>
+      Nasa telepono mo lang naka-save ang routine na ito. Kung magpapalit ka ng telepono o magbubura ng
+      browser data, kopyahin muna ang code sa ibaba at i-save sa Notes o i-text sa sarili mo.
+      <span class="en">Your routine is saved on this phone only. Copy this code to move it to another phone.</span>
+    </p>
+    <textarea id="codeBox" rows="3" readonly aria-label="Setup code"></textarea>
+    <div class="addbar">
+      <button class="btn btn-sm" id="copyCode" type="button">Kopyahin · Copy</button>
+      <button class="btn btn-sm" id="pasteCode" type="button">I-paste ang code · Load a code</button>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div>Ang araw, petsa at naka-highlight na gawain ay galing sa oras ng telepono — laging tama, walang ie-edit.</div>
+    <div>Bubukas ang Circle Time videos sa Google Drive sa bagong tab.</div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var ICONS = {
+    sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.4 5.4l1.6 1.6M17 17l1.6 1.6M18.6 5.4L17 7M7 17l-1.6 1.6"/>',
+    shirt:'<path d="M8.5 3.5 5 5.4 3.5 9l2.6 1.2V20h11.8v-9.8L20.5 9 19 5.4l-3.5-1.9"/><path d="M8.5 3.5C9 5.6 10.3 6.6 12 6.6s3-1 3.5-3.1"/>',
+    bowl:'<path d="M3.6 10.6h16.8a8.4 8.4 0 0 1-8.4 8 8.4 8.4 0 0 1-8.4-8Z"/><path d="M8.6 7.4c0-1.4 1-1.8 1-2.8M12 7c0-1.8 1.2-2.2 1.2-3.4M15.4 7.4c0-1.2.9-1.6.9-2.6"/>',
+    tooth:'<path d="M7.6 3.8C5.4 3.8 4 5.5 4 8c0 2.2.8 3.3 1.2 5.4.4 2.1.3 6.8 2.2 6.8 1.6 0 1.5-4.6 4.6-4.6s3 4.6 4.6 4.6c1.9 0 1.8-4.7 2.2-6.8C19.2 11.3 20 10.2 20 8c0-2.5-1.4-4.2-3.6-4.2-1.7 0-2.9 1-4.4 1-1.5 0-2.7-1-4.4-1Z"/>',
+    music:'<circle cx="7" cy="17.4" r="2.6"/><circle cx="17.4" cy="15.4" r="2.6"/><path d="M9.6 17.4V6.6l10.4-2.2v11"/>',
+    apple:'<path d="M12 7.6c-1-1-2.4-1.6-3.8-1.3C5.9 6.8 4.4 9 4.6 11.6c.3 3.6 2.9 8 5.2 8 .9 0 1.5-.5 2.2-.5s1.3.5 2.2.5c2.3 0 4.9-4.4 5.2-8 .2-2.6-1.3-4.8-3.6-5.3-1.4-.3-2.8.3-3.8 1.3Z"/><path d="M12 7.6c0-1.6.4-3 1.6-4.2"/>',
+    pencil:'<path d="M4 20.2l.9-4 11-11a2.2 2.2 0 0 1 3.1 3.1l-11 11-4 .9Z"/><path d="M14.4 5.9l3.1 3.1"/>',
+    blocks:'<rect x="3.4" y="12.6" width="7.6" height="7.6" rx="1.4"/><rect x="13" y="12.6" width="7.6" height="7.6" rx="1.4"/><rect x="8.2" y="3.6" width="7.6" height="7.6" rx="1.4"/>',
+    plate:'<circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="4.4"/>',
+    moon:'<path d="M19.6 14.8A8.4 8.4 0 0 1 9.2 4.4a8.4 8.4 0 1 0 10.4 10.4Z"/>',
+    tree:'<path d="M12 3.4 6.4 11h3.2l-4 5.6h12.8l-4-5.6h3.2L12 3.4Z"/><path d="M12 16.6v4"/>',
+    book:'<path d="M4 4.6h5.4c1.4 0 2.6.9 2.6 2v12.8c0-1.1-1.2-2-2.6-2H4V4.6Z"/><path d="M20 4.6h-5.4c-1.4 0-2.6.9-2.6 2v12.8c0-1.1 1.2-2 2.6-2H20V4.6Z"/>',
+    bath:'<path d="M3.4 11.4h17.2v2.4a5 5 0 0 1-5 5H8.4a5 5 0 0 1-5-5v-2.4Z"/><path d="M6.6 11.4V6.2a2.2 2.2 0 0 1 4.4 0"/><path d="M6 19v1.8M18 19v1.8"/>',
+    bed:'<path d="M3.4 18.6v-9M3.4 14h17.2v4.6"/><path d="M7.4 10.6h3.8a2 2 0 0 1 2 2V14H7.4a1.8 1.8 0 0 1 0-3.4Z"/><path d="M13.2 12.6h7.4"/>',
+    hands:'<path d="M9 11.4V5.6a1.6 1.6 0 1 1 3.2 0v4.6"/><path d="M12.2 10.2V6.8a1.6 1.6 0 1 1 3.2 0v4.4"/><path d="M15.4 11.4V8.6a1.6 1.6 0 1 1 3.2 0v5.6c0 3.4-2.4 6-5.8 6h-1.6c-2 0-3.2-1-4.2-2.6L5 14.4a1.7 1.7 0 0 1 2.8-1.9L9 14.2"/>',
+    wash:'<path d="M12 3.4c-3 3.4-5 5.8-5 8.2a5 5 0 0 0 10 0c0-2.4-2-4.8-5-8.2Z"/>'
+  };
+  var ICON_NAMES = {
+    sun:"Araw · sun", shirt:"Damit · clothes", bowl:"Mangkok · bowl", tooth:"Ngipin · teeth",
+    music:"Musika · music", apple:"Prutas · fruit", pencil:"Lapis · pencil", blocks:"Laruan · toys",
+    plate:"Pagkain · meal", moon:"Tulog · sleep", tree:"Labas · outdoors", book:"Libro · book",
+    bath:"Paliligo · bath", bed:"Higaan · bed", hands:"Kamay · hands", wash:"Tubig · water"
+  };
+
+  /* ---------- program default routine ---------- */
+  function defaultRoutine(){
+    return [
+      {id:"a1", t:"07:00", icon:"sun",    tl:"Paggising at Pag-unat",   en:"Wake up & stretch",   note:"Buksan ang kurtina, tatlong malaking unat, magandang umaga."},
+      {id:"a2", t:"07:15", icon:"shirt",  tl:"Pagbibihis",              en:"Get dressed",         note:"Bigyan ng dalawang pagpipilian para siya ang pumili."},
+      {id:"a3", t:"07:30", icon:"bowl",   tl:"Almusal",                 en:"Breakfast",           note:"Sabihin ang pangalan ng pagkain — pagbilang at kulay."},
+      {id:"a4", t:"08:00", icon:"tooth",  tl:"Pagsipilyo at Paghilamos",en:"Brush teeth & wash",  note:"Dalawang minuto. Tulong ang kanta sa pagbilang."},
+      {id:"a5", t:"08:30", icon:"music",  tl:"Circle Time",             en:"Circle time",         note:"Umupo sa banig. Pareho ang sunod-sunod ng kanta araw-araw."},
+      {id:"a6", t:"09:30", icon:"apple",  tl:"Meryenda",                en:"Morning snack",       note:"May tubig din. Hayaang siya ang magsalin."},
+      {id:"a7", t:"09:45", icon:"pencil", tl:"Gawaing Pampag-aaral",    en:"Learning activity",   note:"Isang gawain lang, 15–20 minuto. Tumigil habang masaya pa."},
+      {id:"a8", t:"10:30", icon:"blocks", tl:"Malayang Paglalaro",      en:"Free play",           note:"Siya ang bahala. Sumali lang kung inimbitahan ka."},
+      {id:"a9", t:"11:30", icon:"plate",  tl:"Tanghalian",              en:"Lunch",               note:"Ligpitin muna ang laruan para malinaw ang paglipat."},
+      {id:"b1", t:"12:15", icon:"moon",   tl:"Oras ng Tulog",           en:"Quiet time / nap",    note:"Padilimin ang kuwarto. Pahinga lang, okay na rin."},
+      {id:"b2", t:"14:00", icon:"tree",   tl:"Paglalaro sa Labas",      en:"Outdoor play",        note:"Sikat ng araw at malayang paggalaw."},
+      {id:"b3", t:"15:00", icon:"apple",  tl:"Meryenda sa Hapon",       en:"Afternoon snack",     note:"Magandang oras para pag-usapan ang umaga."},
+      {id:"b4", t:"15:30", icon:"book",   tl:"Oras ng Kuwento",         en:"Story time",          note:"Hayaang siya ang magbukas ng pahina at manghula."},
+      {id:"b5", t:"17:30", icon:"plate",  tl:"Hapunan",                 en:"Dinner",              note:"Walang screen. Sabay-sabay sa hapag."},
+      {id:"b6", t:"18:30", icon:"bath",   tl:"Paliligo at Pagbibihis",  en:"Bath & pyjamas",      note:"Simula ng pagpapakalma — hinaan na ang ilaw."},
+      {id:"b7", t:"19:15", icon:"bed",    tl:"Kuwento Bago Matulog",    en:"Bedtime story",       note:"Dalawang libro, patay ilaw. Parehong salita gabi-gabi."}
+    ];
+  }
+
+  /* ---------- Circle Time videos — paste the Drive links here ---------- */
+  var VIDEOS = [
+    {name:"Hello Song",        tl:"pambungad",         url:""},
+    {name:"Days of the Week",  tl:"anong araw ngayon", url:""},
+    {name:"Weather Song",      tl:"tingnan sa labas",  url:""},
+    {name:"Calendar & Numbers",tl:"bilangin ang petsa",url:""},
+    {name:"Alphabet Song",     tl:"mga letra",         url:""},
+    {name:"Goodbye Song",      tl:"pangwakas",         url:""}
+  ];
+  /* -------------------------------------------------------------------- */
+
+  var DAYS_TL = ["Linggo","Lunes","Martes","Miyerkules","Huwebes","Biyernes","Sabado"];
+  var DAYS_EN = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  var SHORT   = ["Li","Lu","Ma","Mi","Hu","Bi","Sa"];
+  var MON_TL  = ["Enero","Pebrero","Marso","Abril","Mayo","Hunyo","Hulyo",
+                 "Agosto","Setyembre","Oktubre","Nobyembre","Disyembre"];
+  var STORE = "samaAralanRoutine.v2";
+
+  function mins(hhmm){var p=String(hhmm).split(":");return (parseInt(p[0],10)||0)*60+(parseInt(p[1],10)||0)}
+  function pretty(hhmm){
+    var m=mins(hhmm), h=Math.floor(m/60), mm=m%60, ap=h<12?"AM":"PM", h12=h%12; if(h12===0)h12=12;
+    return h12+":"+(mm<10?"0"+mm:mm)+" "+ap;
+  }
+  function stamp(d){return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate()}
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+                    .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function uid(){return "u"+Math.random().toString(36).slice(2,8)}
+
+  /* ---------- state ---------- */
+  var storeOK = true;
+  var state = {child:"", routine:defaultRoutine(), day:"", done:[]};
+
+  function load(){
+    try{
+      window.localStorage.setItem("__t","1"); window.localStorage.removeItem("__t");
+      var raw = window.localStorage.getItem(STORE);
+      if(raw){
+        var p = JSON.parse(raw);
+        if(p && Object.prototype.toString.call(p.routine)==="[object Array]" && p.routine.length){
+          state.routine = p.routine;
+          state.child   = typeof p.child==="string" ? p.child : "";
+          state.day     = typeof p.day==="string" ? p.day : "";
+          state.done    = Object.prototype.toString.call(p.done)==="[object Array]" ? p.done : [];
+        }
+      }
+    }catch(e){ storeOK = false; }
+    var today = stamp(new Date());
+    if(state.day !== today){ state.day = today; state.done = []; }
+    if(!storeOK) document.getElementById("noStore").hidden = false;
+  }
+  function save(){
+    try{ window.localStorage.setItem(STORE, JSON.stringify(state)); }catch(e){}
+    refreshCode();
+  }
+  function sortRoutine(){ state.routine.sort(function(a,b){return mins(a.t)-mins(b.t)}); }
+
+  /* ---------- setup code ---------- */
+  var codeBox = document.getElementById("codeBox");
+  function refreshCode(){
+    try{
+      var payload = JSON.stringify({child:state.child, routine:state.routine});
+      codeBox.value = window.btoa(unescape(encodeURIComponent(payload)));
+    }catch(e){ codeBox.value = "—"; }
+  }
+  document.getElementById("copyCode").addEventListener("click", function(){
+    codeBox.focus(); codeBox.select();
+    var ok = false;
+    try{ ok = document.execCommand("copy"); }catch(e){}
+    if(!ok && navigator.clipboard){ navigator.clipboard.writeText(codeBox.value); ok = true; }
+    this.textContent = ok ? "Nakopya! · Copied" : "Piliin at kopyahin · Select & copy";
+    var b = this; setTimeout(function(){ b.textContent = "Kopyahin · Copy"; }, 2200);
+  });
+  document.getElementById("pasteCode").addEventListener("click", function(){
+    var raw = window.prompt("I-paste ang Setup Code dito · Paste your Setup Code here:");
+    if(!raw) return;
+    try{
+      var p = JSON.parse(decodeURIComponent(escape(window.atob(raw.replace(/\s+/g,"")))));
+      if(!p || Object.prototype.toString.call(p.routine)!=="[object Array]" || !p.routine.length) throw 0;
+      state.routine = p.routine;
+      state.child   = typeof p.child==="string" ? p.child : "";
+      state.done    = [];
+      sortRoutine(); save(); render(); tick(true);
+    }catch(e){
+      window.alert("Hindi tama ang code. Siguraduhing buo ang nakopya.\n\nThat code could not be read — make sure the whole thing was copied.");
+    }
+  });
+
+  /* ---------- render ---------- */
+  var stepsEl = document.getElementById("steps");
+  var editing = false, showNotes = false;
+
+  function iconSelect(cur){
+    var out = '<select class="f-icon" aria-label="Icon">';
+    for(var k in ICONS){ if(Object.prototype.hasOwnProperty.call(ICONS,k)){
+      out += '<option value="'+k+'"'+(k===cur?' selected':'')+'>'+esc(ICON_NAMES[k]||k)+'</option>';
+    }}
+    return out+'</select>';
+  }
+
+  function render(){
+    stepsEl.innerHTML = "";
+    for(var i=0;i<state.routine.length;i++){
+      var s = state.routine[i];
+      var li = document.createElement("li");
+      li.setAttribute("data-id", s.id);
+      if(editing){
+        li.className = "step editing";
+        li.innerHTML =
+          '<div class="erow">'+
+            '<label>Oras · Time</label><input type="time" class="f-time" value="'+esc(s.t)+'">'+
+            iconSelect(s.icon)+
+            '<button class="btn btn-sm del f-del" type="button">Alisin · Delete</button>'+
+          '</div>'+
+          '<div class="erow">'+
+            '<input type="text" class="f-tl f-text" value="'+esc(s.tl)+'" placeholder="Pangalan sa Filipino">'+
+            '<input type="text" class="f-en f-text" value="'+esc(s.en)+'" placeholder="Name in English">'+
+          '</div>'+
+          '<textarea class="f-note" placeholder="Paalala sa magulang · note for the grown-up">'+esc(s.note||"")+'</textarea>';
+      }else{
+        li.className = "step" + (state.done.indexOf(s.id)!==-1 ? " is-done" : "");
+        li.innerHTML =
+          '<span class="time">'+pretty(s.t)+'</span>'+
+          '<span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true">'+(ICONS[s.icon]||ICONS.sun)+'</svg></span>'+
+          '<h2 class="title">'+esc(s.tl)+
+            (s.en ? '<span class="sub">'+esc(s.en)+'</span>' : '')+
+          '</h2>'+
+          '<button class="check" type="button" aria-label="Tapos na · done" aria-pressed="'+
+            (state.done.indexOf(s.id)!==-1?"true":"false")+'">'+
+            '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.8 9.6 17.4 19 7"/></svg>'+
+          '</button>'+
+          (s.note ? '<p class="note"'+(showNotes?"":" hidden")+'>'+esc(s.note)+'</p>' : '');
+      }
+      stepsEl.appendChild(li);
+    }
+    paint();
+  }
+
+  function renderVideos(){
+    var out = "";
+    for(var i=0;i<VIDEOS.length;i++){
+      var v = VIDEOS[i];
+      var play = '<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5Z"/></svg></span>';
+      var label = '<span class="vname">'+esc(v.name)+
+                  '<span class="vlen">'+(v.url?esc(v.tl):"wala pang link")+'</span></span>';
+      out += v.url
+        ? '<li><a class="vid" href="'+esc(v.url)+'" target="_blank" rel="noopener">'+play+label+'</a></li>'
+        : '<li><span class="vid is-empty">'+play+label+'</span></li>';
+    }
+    document.getElementById("vids").innerHTML = out;
+  }
+
+  /* ---------- progress ---------- */
+  var barEl = document.getElementById("progressBar");
+  var txtEl = document.getElementById("progressText");
+  function paint(){
+    var n = 0;
+    for(var i=0;i<state.routine.length;i++){ if(state.done.indexOf(state.routine[i].id)!==-1) n++; }
+    barEl.style.width = (state.routine.length ? n/state.routine.length*100 : 0) + "%";
+    txtEl.textContent = n + " / " + state.routine.length + " tapos";
+  }
+
+  /* ---------- date + now ---------- */
+  var dayNameEl=document.getElementById("dayName"), dayEnEl=document.getElementById("dayEn"),
+      fullDateEl=document.getElementById("fullDate"), clockEl=document.getElementById("clock"),
+      stripEl=document.getElementById("daystrip"), kidEl=document.getElementById("kidName");
+  var lastDay = "";
+
+  function tick(force){
+    var now = new Date(), today = stamp(now);
+    if(force || today !== lastDay){
+      lastDay = today;
+      dayNameEl.textContent  = DAYS_TL[now.getDay()];
+      dayEnEl.textContent    = DAYS_EN[now.getDay()];
+      fullDateEl.textContent = MON_TL[now.getMonth()]+" "+now.getDate()+", "+now.getFullYear();
+      kidEl.textContent      = state.child || "bunso";
+      var html = "";
+      for(var d=0;d<7;d++){ html += '<li class="'+(d===now.getDay()?"is-today":"")+'">'+SHORT[d]+'</li>'; }
+      stripEl.innerHTML = html;
+      if(state.day !== today){ state.day = today; state.done = []; save(); render(); }
+    }
+
+    var h=now.getHours(), mm=now.getMinutes(), ap=h<12?"AM":"PM", h12=h%12; if(h12===0)h12=12;
+    clockEl.textContent = h12+":"+(mm<10?"0"+mm:mm)+" "+ap;
+
+    if(editing) return;
+    var nowMins = h*60+mm, cur = -1;
+    for(var k=0;k<state.routine.length;k++){ if(mins(state.routine[k].t) <= nowMins) cur = k; }
+    var rows = stepsEl.children;
+    for(var j=0;j<rows.length;j++){
+      var on = (j === cur);
+      if(rows[j].classList.contains("is-now") !== on){
+        rows[j].classList.toggle("is-now", on);
+        var t = rows[j].querySelector(".title"), tag = t ? t.querySelector(".now-tag") : null;
+        if(on && t && !tag) t.insertAdjacentHTML("afterbegin", '<span class="now-tag">Ngayon</span>');
+        else if(!on && tag) tag.remove();
+      }
+    }
+  }
+
+  /* ---------- interactions ---------- */
+  stepsEl.addEventListener("click", function(ev){
+    var t = ev.target;
+    var chk = t.closest ? t.closest(".check") : null;
+    if(chk){
+      var id = chk.parentNode.getAttribute("data-id");
+      var at = state.done.indexOf(id);
+      if(at === -1) state.done.push(id); else state.done.splice(at,1);
+      chk.parentNode.classList.toggle("is-done", at === -1);
+      chk.setAttribute("aria-pressed", at === -1 ? "true" : "false");
+      save(); paint(); return;
+    }
+    var del = t.closest ? t.closest(".f-del") : null;
+    if(del){
+      var row = del.closest("li"), rid = row.getAttribute("data-id");
+      for(var i=0;i<state.routine.length;i++){
+        if(state.routine[i].id === rid){ state.routine.splice(i,1); break; }
+      }
+      harvest(); save(); render();
+    }
+  });
+
+  /* pull every edit field back into state */
+  function harvest(){
+    var rows = stepsEl.children;
+    for(var i=0;i<rows.length;i++){
+      var id = rows[i].getAttribute("data-id");
+      var tI = rows[i].querySelector(".f-time"); if(!tI) continue;
+      for(var j=0;j<state.routine.length;j++){
+        if(state.routine[j].id !== id) continue;
+        state.routine[j].t    = tI.value || state.routine[j].t;
+        state.routine[j].icon = rows[i].querySelector(".f-icon").value;
+        state.routine[j].tl   = rows[i].querySelector(".f-tl").value || "Gawain";
+        state.routine[j].en   = rows[i].querySelector(".f-en").value;
+        state.routine[j].note = rows[i].querySelector(".f-note").value;
+        break;
+      }
+    }
+    sortRoutine();
+  }
+
+  var editBtn = document.getElementById("editToggle");
+  editBtn.addEventListener("click", function(){
+    if(editing){ harvest(); save(); }
+    editing = !editing;
+    editBtn.setAttribute("aria-pressed", editing ? "true" : "false");
+    editBtn.textContent = editing ? "Tapos na · Done editing" : "Baguhin ang routine · Edit";
+    document.getElementById("addbar").hidden = !editing;
+    render(); tick(true);
+  });
+
+  var notesBtn = document.getElementById("notesToggle");
+  notesBtn.addEventListener("click", function(){
+    showNotes = !showNotes;
+    notesBtn.setAttribute("aria-pressed", showNotes ? "true" : "false");
+    var notes = stepsEl.querySelectorAll(".note");
+    for(var i=0;i<notes.length;i++) notes[i].hidden = !showNotes;
+  });
+
+  document.getElementById("jumpNow").addEventListener("click", function(){
+    var el = stepsEl.querySelector(".is-now") || stepsEl.firstChild;
+    if(el) el.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+
+  document.getElementById("resetChecks").addEventListener("click", function(){
+    state.done = []; save(); render();
+  });
+
+  document.getElementById("addStep").addEventListener("click", function(){
+    harvest();
+    state.routine.push({id:uid(), t:"12:00", icon:"blocks", tl:"Bagong gawain", en:"New activity", note:""});
+    sortRoutine(); save(); render();
+  });
+
+  document.getElementById("editName").addEventListener("click", function(){
+    var n = window.prompt("Pangalan ng bata · Child's name:", state.child || "");
+    if(n === null) return;
+    state.child = n.trim().slice(0,28); save(); tick(true);
+  });
+
+  document.getElementById("resetAll").addEventListener("click", function(){
+    if(!window.confirm("Ibabalik ang routine sa default ng Sama-Aralan. Mawawala ang mga binago mo.\n\nReset to the Sama-Aralan default? Your changes will be lost.")) return;
+    state.routine = defaultRoutine(); state.done = []; save(); render(); tick(true);
+  });
+
+  /* ---------- go ---------- */
+  load();
+  sortRoutine();
+  renderVideos();
+  render();
+  refreshCode();
+  tick(true);
+  setInterval(tick, 20000);
+})();
+</script>
+
+</body>
+</html>
