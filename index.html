@@ -281,6 +281,19 @@
   .lang.en{background:var(--t2);color:var(--t2i)}
   .lang.tl{background:var(--t1);color:var(--t1i)}
 
+
+  /* ---- inline song player (YouTube embed) ---- */
+  .vids{align-items:start}
+  .vid{cursor:pointer;-webkit-appearance:none;appearance:none}
+  .vid[aria-expanded="true"]{border-color:var(--brand);background:var(--brand-soft)}
+  .vid[aria-expanded="true"] .play{background:var(--sun)}
+  .vidplayer{margin-top:7px;border-radius:var(--r-sm);overflow:hidden;background:#000;
+    position:relative;width:100%;padding-top:56.25%}
+  .vidplayer iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+  .vidcredit{margin:6px 2px 0;font-family:"Poppins",sans-serif;font-size:11.5px;font-weight:300;
+    color:var(--ink-faint);line-height:1.4}
+  .vidcredit a{color:var(--brand-ink);font-weight:600;text-decoration:underline}
+
   /* ---- setup code ---- */
   .save{margin-top:24px;background:var(--warn-soft);border:1.5px solid var(--warn-line);
     border-radius:var(--r-lg);padding:20px 22px}
@@ -489,7 +502,9 @@
       editingEveryday:"You are editing the everyday routine — this changes every day that has no special plan.",
       editingPlan:function(d){return "You are editing the plan for "+d+" only."},
       circleHere:"Show the Circle Time songs after this activity",
-      circleSub:"Songs in order · tap to open in Drive",
+      circleSub:"Songs in order · tap to play",
+      vidBy:"Video by",
+      vidWatch:"Watch on YouTube",
       saveTitle:"Save your setup — please read",
       saveWarn:"Your routine is saved only in this browser, on this phone. It will be LOST if you clear your browsing data, switch to another phone, or open this page in a private window.",
       saveStep1:"<strong>Tap Copy my code</strong> below.",
@@ -501,7 +516,7 @@
       resetAsk:"Reset to the Sama-Aralan default routine? Your changes will be lost.",
       noStore:"<strong>This browser can't save.</strong> You can still change the routine, but it will be lost when you refresh. Copy the code at the bottom of this page and keep it safe.",
       foot1:"The day, date and highlighted activity come from this device's clock — always current, nothing to update by hand.",
-      foot2:"You need access to the Sama-Aralan Google Drive folder to open the songs.",
+      foot2:"The songs play here from YouTube. No sign-in and no Google account needed. Each one belongs to the channel credited under it.",
       phTitle:"Name in English", phAlt:"Pangalan sa Filipino",
       phNote:"Note for the grown-up", lblTime:"Time", remove:"Remove",
       newAct:"New activity",
@@ -541,7 +556,9 @@
       editingEveryday:"Binabago mo ang pang-araw-araw na routine — maaapektuhan nito ang lahat ng araw na walang espesyal na plano.",
       editingPlan:function(d){return "Binabago mo lang ang plano para sa "+d+"."},
       circleHere:"Ipakita ang mga awitin ng Circle Time pagkatapos nito",
-      circleSub:"Sunod-sunod na awitin · i-tap para buksan sa Drive",
+      circleSub:"Sunod-sunod na awitin · i-tap para patugtugin",
+      vidBy:"Video ni",
+      vidWatch:"Panoorin sa YouTube",
       saveTitle:"I-save ang setup mo — pakibasa",
       saveWarn:"Ang routine mo ay naka-save lang sa browser ng teleponong ito. MAWAWALA ito kung buburahin mo ang browsing data, lilipat ka ng telepono, o bubuksan mo ito sa private window.",
       saveStep1:"<strong>Pindutin ang Kopyahin ang code</strong> sa ibaba.",
@@ -553,7 +570,7 @@
       resetAsk:"Ibabalik ang routine sa default ng Sama-Aralan. Mawawala ang mga binago mo. Tuloy?",
       noStore:"<strong>Hindi makapag-save ang browser na ito.</strong> Puwede mo pa ring baguhin ang routine, pero mawawala ito kapag nag-refresh. Kopyahin ang code sa ibaba ng page.",
       foot1:"Ang araw, petsa at naka-highlight na gawain ay galing sa oras ng telepono — laging tama, walang ie-edit.",
-      foot2:"Kailangan ng access sa Sama-Aralan Google Drive folder para mabuksan ang mga awitin.",
+      foot2:"Ang mga awitin ay tumutugtog dito mula sa YouTube. Hindi kailangang mag-sign in o magka-Google account. Ang bawat isa ay pag-aari ng channel na nakasulat sa ilalim nito.",
       phTitle:"Pangalan sa Filipino", phAlt:"Name in English",
       phNote:"Paalala sa magulang", lblTime:"Oras", remove:"Alisin",
       newAct:"Bagong gawain",
@@ -632,26 +649,31 @@
   }
 
   /* ---------- Circle Time songs (Sama-Aralan Drive folder) ---------- */
-  var D = "https://drive.google.com/file/d/";
+  /* The songs are the creators' own YouTube videos, embedded here.
+     Nothing is copied or re-hosted \u2014 each one plays from the original
+     channel, and the channel is credited under the player.
+     "yt" is the video id, the part after youtu.be/ in its link. */
+  var D = "https://www.youtube.com/embed/";
+  var YT_WATCH = "https://www.youtube.com/watch?v=";
   var VIDEOS = [
-    {name:"Hello Hello",         lang:"EN", id:"19PmaCQicZ9bRXJsAMERNAiYoBCILBHzK",
-      dEn:"Morning Greeting",        dFil:"Pagbati sa Umaga"},
-    {name:"Lupang Hinirang",     lang:"",   id:"1S9u-4X7Igx9D5XZCIytjMYcgDB4Tkc9L",
-      dEn:"National Anthem",         dFil:"Pambansang Awit"},
-    {name:"Days of the Week",    lang:"EN", id:"1gxqfAFeyOXqa_S2PKxxCTaEkdeIBk8Xa",
-      dEn:"What day is it today?",    dFil:"Anong araw ngayon?"},
-    {name:"Araw sa Isang Linggo",lang:"TL", id:"1AJb5sFkR_9jjmyGgXcOJFusVe44V3N_3",
-      dEn:"Days of the Week",        dFil:"Mga Araw sa Isang Linggo"},
-    {name:"Months of the Year",  lang:"EN", id:"1rP0QUXY60vFk9nIRmoo8BqB6eM58mP81",
-      dEn:"Months of the Year",      dFil:"Mga Buwan sa Isang Taon"},
-    {name:"Lubi-lubi",           lang:"TL", id:"1Q55c8qjb-g31EnHBbvH01xQ5DzKhlbXe",
-      dEn:"Months of the Year",      dFil:"Mga Buwan sa Isang Taon"},
-    {name:"The Weather Song",    lang:"EN", id:"1ajZqds1P53Y7bsCgdEgEFtG_smRwWWTW",
-      dEn:"Look outside first",      dFil:"Tingnan muna ang Panahon"},
-    {name:"Clean Up Song",       lang:"EN", id:"1PHS9BvqG5-wrIG9vg0DUDO3MqxdDuJJg",
-      dEn:"Pack the toys away",      dFil:"Ligpitin ang mga Laruan"},
-    {name:"Goodbye To You",      lang:"EN", id:"1gCe9yxm3pmaB6cEo1CbNAIf9TGFiigYi",
-      dEn:"Closing Song",            dFil:"Pangwakas na Awit"}
+    {name:"Hello Hello",          lang:"EN", yt:"fN1Cyr0ZK9M", by:"Super Simple Songs",
+      dEn:"morning greeting",         dFil:"pagbati sa umaga"},
+    {name:"Lupang Hinirang",      lang:"",   yt:"bUV8KZavMBA", by:"Hiraya TV",
+      dEn:"national anthem",          dFil:"pambansang awit"},
+    {name:"Days of the Week",     lang:"EN", yt:"loINl3Ln6Ck", by:"Super Simple Songs",
+      dEn:"what day is it today",     dFil:"anong araw ngayon"},
+    {name:"Araw sa Isang Linggo", lang:"TL", yt:"2YPN2LmZcwg", by:"robie317",
+      dEn:"days of the week",         dFil:"mga araw sa isang linggo"},
+    {name:"Months of the Year",   lang:"EN", yt:"-4s-ut7N0jQ", by:"Maple Leaf Learning",
+      dEn:"months of the year",       dFil:"mga buwan sa isang taon"},
+    {name:"Lubi-lubi",            lang:"TL", yt:"8o9cFiF3ZZ4", by:"Hiraya TV",
+      dEn:"months \u00b7 folk song",      dFil:"mga buwan \u00b7 awiting bayan"},
+    {name:"The Weather Song",     lang:"EN", yt:"ygryGkGpgUs", by:"George Mehler",
+      dEn:"look outside first",       dFil:"tingnan muna ang panahon"},
+    {name:"Clean Up Song",        lang:"EN", yt:"SFE0mMWbA-Y", by:"Super Simple Songs",
+      dEn:"pack the toys away",       dFil:"ligpitin ang laruan"},
+    {name:"Goodbye To You",       lang:"EN", yt:"STMl4yjPpoM", by:"ELF Kids Videos",
+      dEn:"closing song",             dFil:"pangwakas na awit"}
   ];
   /* ------------------------------------------------------------------ */
 
@@ -904,10 +926,58 @@
       var play = '<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5Z"/></svg></span>';
       var chip = v.lang ? '<span class="lang '+(v.lang==="EN"?"en":"tl")+'">'+v.lang+'</span>' : '';
       var label = '<span class="vname">'+esc(v.name)+chip+'<span class="vlen">'+esc(desc)+'</span></span>';
-      out += '<li><a class="vid" href="'+D+esc(v.id)+'/view" target="_blank" rel="noopener">'+play+label+'</a></li>';
+      out += '<li><button class="vid" type="button" aria-expanded="false" '+
+             'data-yt="'+esc(v.yt)+'" data-by="'+esc(v.by||"")+'">'+play+label+'</button></li>';
     }
     document.getElementById("vids").innerHTML = out;
   }
+
+  /* One song open at a time. Nothing loads from YouTube until a song is tapped,
+     so simply opening the Routine Board costs no video data. */
+  function closeSong(){
+    var open = document.querySelector('#vids .vid[aria-expanded="true"]');
+    if(open) open.setAttribute("aria-expanded","false");
+    var extra = document.querySelectorAll("#vids .vidplayer, #vids .vidcredit");
+    for(var i=0;i<extra.length;i++){
+      var fr = extra[i].querySelector ? extra[i].querySelector("iframe") : null;
+      if(fr) fr.setAttribute("src","about:blank");
+      extra[i].parentNode.removeChild(extra[i]);
+    }
+  }
+  document.getElementById("vids").addEventListener("click", function(ev){
+    var btn = ev.target.closest ? ev.target.closest(".vid") : null;
+    if(!btn) return;
+    var wasOpen = btn.getAttribute("aria-expanded") === "true";
+    closeSong();
+    if(wasOpen) return;
+
+    var t = L();
+    var id = btn.getAttribute("data-yt");
+    var by = btn.getAttribute("data-by");
+
+    var box = document.createElement("div");
+    box.className = "vidplayer";
+    var fr = document.createElement("iframe");
+    fr.setAttribute("src", D + encodeURIComponent(id) +
+      "?rel=0&playsinline=1&autoplay=1&iv_load_policy=3");
+    fr.setAttribute("title", btn.textContent);
+    fr.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture");
+    fr.setAttribute("allowfullscreen", "");
+    fr.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+    box.appendChild(fr);
+
+    /* Always offered: if the embed ever says the video is unavailable,
+       this link still opens it on YouTube. */
+    var credit = document.createElement("p");
+    credit.className = "vidcredit";
+    credit.innerHTML = (by ? esc(t.vidBy) + " " + esc(by) + " \u00b7 " : "") +
+      '<a href="' + esc(YT_WATCH + id) + '" target="_blank" rel="noopener">' +
+      esc(t.vidWatch) + '</a>';
+
+    btn.parentNode.appendChild(box);
+    btn.parentNode.appendChild(credit);
+    btn.setAttribute("aria-expanded","true");
+  });
 
   /* ---------- progress ---------- */
   var barEl = document.getElementById("progressBar");
@@ -1108,7 +1178,7 @@
     var ns = document.getElementById("noStore");
     ns.innerHTML = t.noStore; ns.hidden = storeOK;
 
-    drawHowto(); drawName(); renderVideos(); drawHeader(); drawWeek(); drawPlanner();
+    closeSong(); drawHowto(); drawName(); renderVideos(); drawHeader(); drawWeek(); drawPlanner();
     render(); drawEditingWhat(); tick(true);
   }
 
